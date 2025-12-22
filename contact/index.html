@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact | Jokare</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/script.js" defer></script>
+</head>
+<body>
+
+<div id="header"></div>
+
+<main class="page-content">
+  <img src="/images/contact.png" class="page-img">
+
+  <h2 data-en="Contact" data-ja="お問い合わせ">Contact</h2>
+
+  <form id="contactForm">
+    <input type="hidden" id="source" name="source">
+
+    <div class="form-row">
+      <label data-en="Name" data-ja="お名前">Name</label>
+      <input type="text" name="name" required>
+    </div>
+
+    <div class="form-row">
+      <label data-en="Email" data-ja="メールアドレス">Email</label>
+      <input type="email" name="email" required>
+    </div>
+
+    <div class="form-row">
+      <label data-en="Message" data-ja="メッセージ">Message</label>
+      <textarea name="message" rows="5" required></textarea>
+    </div>
+
+    <button type="submit" class="cta"
+            data-en="Send" data-ja="送信">
+      Send
+    </button>
+
+    <p id="formFeedback"></p>
+  </form>
+</main>
+
+<footer>© Jokare</footer>
+</body>
+</html>
