@@ -6,17 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(res => res.text())
     .then(html => {
       document.getElementById("header").innerHTML = html;
-      
-      // Highlight the active navigation link after header loads
-      const currentPath = window.location.pathname;
-      document.querySelectorAll('nav a').forEach(link => {
-        const href = link.getAttribute('href');
-        // Matches exact path OR sub-paths (like /store/index.html matching /store/)
-        if (href === currentPath || (href !== '/' && currentPath.startsWith(href))) {
-          link.classList.add('active-link');
-        }
-      });
-
       initLanguage();
     });
 
@@ -69,17 +58,13 @@ function initContactForm() {
       headers: { Accept: "application/json" }
     })
     .then(res => {
-      const feedback = document.getElementById("formFeedback");
-      if (res.ok) {
-        feedback.textContent = isJapanese ? "✅ 送信完了しました！" : "✅ Message sent!";
-        form.reset();
-      } else {
-        feedback.textContent = isJapanese ? "❌ 送信に失敗しました。" : "❌ Failed to send message.";
-      }
+      document.getElementById("formFeedback").textContent =
+        res.ok ? "✅ Message sent!" : "❌ Failed to send message.";
+      if (res.ok) form.reset();
     })
     .catch(() => {
-      const feedback = document.getElementById("formFeedback");
-      feedback.textContent = isJapanese ? "❌ 送信に失敗しました。" : "❌ Failed to send message.";
+      document.getElementById("formFeedback").textContent =
+        "❌ Failed to send message.";
     });
   });
 }
