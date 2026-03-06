@@ -110,13 +110,11 @@ footer {
 
 .tagline {
   text-align: center;
-  font-size: 1.3rem;
-  font-weight: 500;
-  margin: 25px auto 40px;
-  max-width: 700px;
-  line-height: 1.6;
+  font-size: 1.25rem;
+  margin: 15px auto 50px;
+  max-width: 720px;
+  line-height: 1.7;
   color: #555;
-  padding: 0 20px;
 }
 
 .service {
@@ -144,5 +142,10 @@ footer {
   gap: 12px;
 }
 
-
-
+.hero-title {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-top: 40px;
+  margin-bottom: 10px;
+  color: #222;
+}
