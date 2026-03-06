@@ -15,7 +15,6 @@ header {
 
 .logo {
   width: 60px;
-  margin-bottom: 10px;
 }
 
 nav {
@@ -132,3 +131,4 @@ footer {
   justify-content: center;
   gap: 12px;
 }
+
