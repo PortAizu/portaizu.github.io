@@ -67,6 +67,12 @@ nav a:hover {
   object-fit: contain;
 }
 
+.service p {
+  font-size: 0.95rem;
+  color: #555;
+  margin: 10px 0 16px;
+}
+
 /* CTA */
 .cta {
   display: inline-block;
@@ -131,4 +137,5 @@ footer {
   justify-content: center;
   gap: 12px;
 }
+
 
