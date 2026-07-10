@@ -49,22 +49,21 @@
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
     
-    /* DUAL MODALITY PRINT CONTROLLER */
+    /* DUAL MODALITY PRINT CONTROLLER - EXPANDED DOCUMENT EDITION */
     @media print {
       body * { visibility: hidden; }
       
-      /* Make both target sheets targetable by the printer */
       #invoice-sheet, #invoice-sheet *, #contract-sheet, #contract-sheet * { 
         visibility: visible; 
       }
       
-      /* Standardize document presentation formatting */
       #invoice-sheet, #contract-sheet { 
         position: absolute; 
         left: 0; 
         top: 0; 
         width: 100% !important; 
         max-width: 100% !important;
+        min-h: max-content !important; /* Overrides screen constraints */
         box-shadow: none !important; 
         border: none !important;
         padding: 0 !important;
@@ -72,6 +71,17 @@
         color: black !important; 
         background: white !important; 
       }
+
+      /* Tailor the contract page typography to expand naturally on paper */
+      #contract-sheet {
+        font-size: 13px !important; /* Increases readability size */
+        line-height: 1.8 !important; /* Spreads lines out cleanly */
+      }
+      
+      #contract-sheet h1 { font-size: 18px !important; margin-bottom: 24px !important; }
+      #contract-sheet h3 { font-size: 14px !important; margin-top: 20px !important; }
+      #contract-sheet p { margin-bottom: 16px !important; }
+      
       .no-print { display: none !important; }
     }
   </style>
