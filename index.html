@@ -45,16 +45,31 @@
     }
   </script>
 
-  <style>
+ <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    
+    /* THE PRINT ENGINE OVERHAUL */
     @media print {
       body * { visibility: hidden; }
-      #invoice-sheet, #invoice-sheet *, #contract-sheet, #contract-sheet * { visibility: visible; }
-      #invoice-sheet, #contract-sheet { position: absolute; left: 0; top: 0; width: 100%; color: black !important; background: white !important; }
+      #invoice-sheet, #invoice-sheet * { visibility: visible; }
+      #invoice-sheet { 
+        position: absolute; 
+        left: 0; 
+        top: 0; 
+        width: 100% !important; 
+        max-width: 100% !important;
+        box-shadow: none !important; 
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        color: black !important; 
+        background: white !important; 
+      }
       .no-print { display: none !important; }
     }
   </style>
+  
   <script src="/script.js" defer></script>
 </head>
 <body class="bg-[#090d16] text-slate-100 min-h-screen md:h-screen md:overflow-hidden flex flex-col">
