@@ -12,6 +12,18 @@
   <link rel="icon" type="image/png" href="/images/favicon.png">
   <link rel="apple-touch-icon" href="/images/favicon.png">
 
+  <!-- Structured Data for Google Indexing -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Jokare",
+    "url": "https://jokare.com",
+    "logo": "https://jokare.com/images/favicon.png",
+    "description": "Premium browser-based business utilities, secure invoice engines, and curated cloud infrastructure software for enterprise teams."
+  }
+  </script>
+
   <meta name="theme-color" content="#090d16">
   
   <!-- Injected Tailwind CSS for bleeding-edge SaaS UI styling -->
@@ -38,8 +50,8 @@
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
     @media print {
       body * { visibility: hidden; }
-      #invoice-sheet, #invoice-sheet * { visibility: visible; }
-      #invoice-sheet { position: absolute; left: 0; top: 0; width: 100%; color: black !important; background: white !important; }
+      #invoice-sheet, #invoice-sheet *, #contract-sheet, #contract-sheet * { visibility: visible; }
+      #invoice-sheet, #contract-sheet { position: absolute; left: 0; top: 0; width: 100%; color: black !important; background: white !important; }
       .no-print { display: none !important; }
     }
   </style>
@@ -61,6 +73,7 @@
     
     <nav class="flex items-center gap-1 bg-slate-900/60 p-1 rounded-xl border border-slate-800/80 w-full sm:w-auto overflow-x-auto justify-center">
       <button onclick="switchWorkspace('invoice')" id="nav-invoice" class="bg-brand-500 text-white font-semibold text-xs px-3 sm:px-4 py-2 rounded-lg transition shadow-md shadow-brand-500/10 whitespace-nowrap" data-en="Invoice Engine" data-ja="請求書作成">Invoice Engine</button>
+      <button onclick="switchWorkspace('contract')" id="nav-contract" class="text-slate-400 hover:text-white font-semibold text-xs px-3 sm:px-4 py-2 rounded-lg transition whitespace-nowrap" data-en="NDA Generator" data-ja="契約書作成">NDA Generator</button>
       <button onclick="switchWorkspace('marketplace')" id="nav-marketplace" class="text-slate-400 hover:text-white font-semibold text-xs px-3 sm:px-4 py-2 rounded-lg transition whitespace-nowrap" data-en="B2B Marketplace" data-ja="企業向けストア">B2B Marketplace</button>
       <a href="/contact/" class="text-slate-400 hover:text-white font-semibold text-xs px-3 sm:px-4 py-2 rounded-lg transition whitespace-nowrap" data-en="Custom Build" data-ja="特注開発窓口">Custom Build</a>
     </nav>
@@ -146,14 +159,82 @@
       </section>
     </div>
 
-    <!-- SUB-MODULE 2: ENTERPRISE SOFTWARE ACQUISITION PIPELINE -->
+    <!-- SUB-MODULE 2: SECURE LOCAL CONTRACT MODALITY -->
+    <div id="view-contract" class="w-full flex flex-col md:flex-row h-full hidden">
+      <!-- Parameters Panel -->
+      <section class="w-full md:w-1/2 p-4 sm:p-8 md:overflow-y-auto border-b md:border-b-0 md:border-r border-slate-800/60 no-print space-y-6 bg-[#050911]">
+        <div>
+          <h2 class="text-xl font-extrabold text-white tracking-tight" data-en="Secure NDA Protocol Engine" data-ja="秘密保持契約書(NDA)ジェネレーター">Secure NDA Protocol Engine</h2>
+          <p class="text-xs text-slate-400 mt-1" data-en="Instantly compile legally structured Non-Disclosure Agreements completely offline." data-ja="ブラウザ上で安全に法的な秘密保持契約書を構成。外部送信なし。">Instantly compile legally structured Non-Disclosure Agreements completely offline.</p>
+        </div>
+
+        <div class="space-y-4">
+          <div class="bg-slate-900/40 p-4 sm:p-5 rounded-2xl border border-slate-800/60 space-y-4">
+            <label class="block text-[10px] font-bold text-brand-500 uppercase tracking-widest" data-en="Disclosing Party (You)" data-ja="開示当事者（甲）">Disclosing Party (You)</label>
+            <input type="text" id="in-party-a" oninput="syncContractData()" value="Alex Studio London Ltd" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-3 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-brand-500 transition">
+          </div>
+
+          <div class="bg-slate-900/40 p-4 sm:p-5 rounded-2xl border border-slate-800/60 space-y-4">
+            <label class="block text-[10px] font-bold text-brand-500 uppercase tracking-widest" data-en="Receiving Party (Client)" data-ja="受領当事者（乙）">Receiving Party (Client)</label>
+            <input type="text" id="in-party-b" oninput="syncContractData()" placeholder="Enter Corporate Client Full Entity Name" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-3 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-brand-500 transition">
+          </div>
+
+          <div class="bg-slate-900/40 p-4 sm:p-5 rounded-2xl border border-slate-800/60 space-y-4">
+            <label class="block text-[10px] font-bold text-brand-500 uppercase tracking-widest" data-en="Project Scope / Purpose" data-ja="開示目的・対象事業">Project Scope / Purpose</label>
+            <input type="text" id="in-purpose" oninput="syncContractData()" value="Evaluation of proprietary database systems and cloud layout engineering frameworks." class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-3 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-brand-500 transition">
+          </div>
+        </div>
+
+        <button onclick="window.print()" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-3.5 px-4 rounded-xl transition flex items-center justify-center space-x-2 shadow-lg shadow-brand-500/10 hover:shadow-brand-500/20">
+          <span>📥</span> <span data-en="Compile & Export Secure NDA" data-ja="NDAドキュメントを出力">Compile & Export Secure NDA</span>
+        </button>
+      </section>
+
+      <!-- Realtime Document Paper View Panel -->
+      <section class="w-full md:w-1/2 p-4 sm:p-8 bg-[#04070d] flex justify-center items-start overflow-y-auto">
+        <div id="contract-sheet" class="w-full max-w-md bg-white text-slate-900 p-6 sm:p-8 shadow-2xl rounded-xl border border-slate-200 flex flex-col justify-between min-h-[480px] sm:min-h-[540px] my-4 text-[10px] leading-relaxed">
+          <div>
+            <h1 class="text-center text-sm font-black tracking-wider border-b border-slate-300 pb-3 mb-4 text-slate-900 uppercase">Mutual Non-Disclosure Agreement</h1>
+            
+            <p class="mb-3 text-slate-700">
+              This Non-Disclosure Agreement ("Agreement") is entered into effect as of <strong>2026/07/10</strong>, by and between <strong id="out-party-a" class="border-b border-slate-300 px-1 text-slate-900">Alex Studio London Ltd</strong> ("Disclosing Party"), and <strong id="out-party-b" class="border-b border-slate-300 px-1 text-slate-900">[Receiving Party Entity]</strong> ("Receiving Party").
+            </p>
+
+            <h3 class="font-bold text-slate-900 mt-3 mb-1 uppercase tracking-tight">1. Purpose Allocation</h3>
+            <p class="mb-3 text-slate-600" id="out-purpose">Evaluation of proprietary database systems and cloud layout engineering frameworks.</p>
+
+            <h3 class="font-bold text-slate-900 mt-3 mb-1 uppercase tracking-tight">2. Confidential Information</h3>
+            <p class="mb-3 text-slate-600">
+              Confidential Information refers to any proprietary data, technical specifications, source arrays, or strategic roadmap plans disclosed by the Disclosing Party to the Receiving Party, marked or reasonably understood to be corporate collateral assets.
+            </p>
+
+            <h3 class="font-bold text-slate-900 mt-3 mb-1 uppercase tracking-tight">3. Protection Parameters</h3>
+            <p class="mb-4 text-slate-600">
+              The Receiving Party agrees to maintain strict operational containment parameters and safeguard the data matrix with the highest degree of localized security protocol management.
+            </p>
+
+            <div class="grid grid-cols-2 gap-6 pt-6 mt-6 border-t border-slate-200">
+              <div class="space-y-4">
+                <div class="h-8 border-b border-slate-300"></div>
+                <p class="text-[8px] font-bold text-slate-400 uppercase tracking-wider">Disclosing Signature</p>
+              </div>
+              <div class="space-y-4">
+                <div class="h-8 border-b border-slate-300"></div>
+                <p class="text-[8px] font-bold text-slate-400 uppercase tracking-wider">Receiving Signature</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- SUB-MODULE 3: ENTERPRISE SOFTWARE ACQUISITION PIPELINE -->
     <div id="view-marketplace" class="w-full h-full p-4 sm:p-10 overflow-y-auto bg-[#050911] hidden">
       <div class="max-w-4xl mx-auto">
         <h2 class="text-2xl font-black text-white tracking-tight" data-en="Verified Enterprise Architecture Matrix" data-ja="厳選B2Bエンタープライズ・クラウド索引">Verified Enterprise Architecture Matrix</h2>
         <p class="text-sm text-slate-400 mt-1 mb-8" data-en="Deploy high-ticket client systems, enterprise CRM nodes, and corporate operation pipelines." data-ja="数千人規模の運用に対応する最高峰のプロジェクト基盤、営業データ管理、業務自動化ツール群。">Deploy high-ticket client systems.</p>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <!-- Premium Affiliate Block Asset Frame 1 -->
           <div class="p-6 border border-slate-800/80 rounded-2xl bg-slate-900/20 hover:bg-slate-900/40 flex flex-col justify-between transition group hover:border-brand-500/30">
             <div>
               <div class="flex justify-between items-start mb-3">
@@ -165,7 +246,6 @@
             <a href="#" target="_blank" class="block w-full text-center bg-slate-900 group-hover:bg-brand-500 border border-slate-800 group-hover:border-brand-600 text-white text-xs font-bold py-3 rounded-xl transition shadow-sm" data-en="Deploy Architecture System &rarr;" data-ja="インフラシステムを導入 &rarr;">Deploy Architecture System &rarr;</a>
           </div>
 
-          <!-- Premium Affiliate Block Asset Frame 2 -->
           <div class="p-6 border border-slate-800/80 rounded-2xl bg-slate-900/20 hover:bg-slate-900/40 flex flex-col justify-between transition group hover:border-brand-500/30">
             <div>
               <div class="flex justify-between items-start mb-3">
@@ -185,17 +265,22 @@
   <script>
     function switchWorkspace(targetId) {
       document.getElementById('view-invoice').classList.add('hidden');
+      document.getElementById('view-contract').classList.add('hidden');
       document.getElementById('view-marketplace').classList.add('hidden');
       
-      document.getElementById('nav-invoice').className = "text-slate-400 hover:text-white font-semibold text-xs px-4 py-2 rounded-lg transition whitespace-nowrap";
-      document.getElementById('nav-marketplace').className = "text-slate-400 hover:text-white font-semibold text-xs px-4 py-2 rounded-lg transition whitespace-nowrap";
+      document.getElementById('nav-invoice').className = "text-slate-400 hover:text-white font-semibold text-xs px-3 sm:px-4 py-2 rounded-lg transition whitespace-nowrap";
+      document.getElementById('nav-contract').className = "text-slate-400 hover:text-white font-semibold text-xs px-3 sm:px-4 py-2 rounded-lg transition whitespace-nowrap";
+      document.getElementById('nav-marketplace').className = "text-slate-400 hover:text-white font-semibold text-xs px-3 sm:px-4 py-2 rounded-lg transition whitespace-nowrap";
 
       if(targetId === 'invoice') {
         document.getElementById('view-invoice').classList.remove('hidden');
-        document.getElementById('nav-invoice').className = "bg-brand-500 text-white font-semibold text-xs px-4 py-2 rounded-lg transition shadow-md shadow-brand-500/10 whitespace-nowrap";
+        document.getElementById('nav-invoice').className = "bg-brand-500 text-white font-semibold text-xs px-3 sm:px-4 py-2 rounded-lg transition shadow-md shadow-brand-500/10 whitespace-nowrap";
+      } else if(targetId === 'contract') {
+        document.getElementById('view-contract').classList.remove('hidden');
+        document.getElementById('nav-contract').className = "bg-brand-500 text-white font-semibold text-xs px-3 sm:px-4 py-2 rounded-lg transition shadow-md shadow-brand-500/10 whitespace-nowrap";
       } else {
         document.getElementById('view-marketplace').classList.remove('hidden');
-        document.getElementById('nav-marketplace').className = "bg-brand-500 text-white font-semibold text-xs px-4 py-2 rounded-lg transition shadow-md shadow-brand-500/10 whitespace-nowrap";
+        document.getElementById('nav-marketplace').className = "bg-brand-500 text-white font-semibold text-xs px-3 sm:px-4 py-2 rounded-lg transition shadow-md shadow-brand-500/10 whitespace-nowrap";
       }
     }
 
@@ -215,8 +300,19 @@
       document.getElementById('out-total').innerText = combinedVal;
     }
 
+    function syncContractData() {
+      const partyA = document.getElementById('in-party-a').value || '---';
+      const partyB = document.getElementById('in-party-b').value || '[Receiving Party Entity]';
+      const purpose = document.getElementById('in-purpose').value || '---';
+
+      document.getElementById('out-party-a').innerText = partyA;
+      document.getElementById('out-party-b').innerText = partyB;
+      document.getElementById('out-purpose').innerText = purpose;
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
       setTimeout(syncInvoiceData, 200);
+      setTimeout(syncContractData, 200);
     });
   </script>
 </body>
