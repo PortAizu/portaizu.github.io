@@ -1,70 +1,37 @@
-let isJapanese = false;
-
-/* LOAD HEADER */
-document.addEventListener("DOMContentLoaded", () => {
-  fetch("/header.html")
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById("header").innerHTML = html;
-      initLanguage();
-    });
-
-  initContactForm();
-});
-
-/* LANGUAGE */
-function initLanguage() {
-  const saved = localStorage.getItem("lang");
-  if (saved) {
-    isJapanese = saved === "ja";
-  } else {
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    if (tz && tz.includes("Tokyo")) isJapanese = true;
-  }
-  applyLanguage();
-}
+let currentLang = 'en';
 
 function toggleLanguage() {
-  isJapanese = !isJapanese;
-  localStorage.setItem("lang", isJapanese ? "ja" : "en");
-  applyLanguage();
-}
-
-function applyLanguage() {
-  document.querySelectorAll("[data-en]").forEach(el => {
-    el.textContent = isJapanese
-      ? el.dataset.ja || el.dataset.en
-      : el.dataset.en;
+  // Flip the active state
+  currentLang = currentLang === 'en' ? 'ja' : 'en';
+  
+  // 1. Update all standard text nodes with translation metrics
+  const elements = document.querySelectorAll('[data-en]');
+  elements.forEach(el => {
+    const text = el.getAttribute(`data-${currentLang}`);
+    if (text) {
+      el.innerText = text;
+    }
   });
-  document.documentElement.lang = isJapanese ? "ja" : "en";
+
+  // 2. Dynamically update form placeholders if they exist (on contact page)
+  const nameInput = document.querySelector('input[name="name"]');
+  const emailInput = document.querySelector('input[name="email"]');
+  const msgInput = document.querySelector('textarea[name="message"]');
+
+  if (nameInput && emailInput && msgInput) {
+    if (currentLang === 'ja') {
+      nameInput.placeholder = "例：山田 太郎";
+      emailInput.placeholder = "example@company.com";
+      msgInput.placeholder = "どのようなツールやシステムのカスタマイズをご希望ですか？詳細をご記入ください。";
+    } else {
+      nameInput.placeholder = "";
+      emailInput.placeholder = "";
+      msgInput.placeholder = "";
+    }
+  }
 }
 
-/* CONTACT FORM */
-function initContactForm() {
-  const form = document.getElementById("contactForm");
-  if (!form) return;
-
-  const sourceInput = document.getElementById("source");
-  const params = new URLSearchParams(window.location.search);
-  sourceInput.value = params.get("source") || "general";
-
-  form.addEventListener("submit", e => {
-    e.preventDefault();
-    const formData = new FormData(form);
-
-    fetch("https://formspree.io/f/meoydyrq", {
-      method: "POST",
-      body: formData,
-      headers: { Accept: "application/json" }
-    })
-    .then(res => {
-      document.getElementById("formFeedback").textContent =
-        res.ok ? "✅ Message sent!" : "❌ Failed to send message.";
-      if (res.ok) form.reset();
-    })
-    .catch(() => {
-      document.getElementById("formFeedback").textContent =
-        "❌ Failed to send message.";
-    });
-  });
-}
+// Ensure the page drops into the current active language layout on load
+document.addEventListener('DOMContentLoaded', () => {
+  // Optional: Add logic here if you want to detect browser language automatically
+});
