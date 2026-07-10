@@ -5,7 +5,7 @@
   <title>Contact & Custom Infrastructure | Jokare</title>
   <meta name="description" content="Contact Jokare for tailored enterprise tools, engineering architecture deployments, or support documentation queries.">
   <link rel="canonical" href="https://jokare.com/contact/">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
   <!-- Favicon Core System Assets -->
   <link rel="shortcut icon" href="/images/favicon.png">
@@ -39,7 +39,7 @@
 <body class="bg-[#090d16] text-slate-100 min-h-screen flex flex-col justify-between antialiased">
 
   <!-- Application Context Header Layout Block -->
-  <header class="bg-[#040810]/80 backdrop-blur-md border-b border-slate-800/60 px-6 py-4 flex justify-between items-center no-print flex-shrink-0">
+  <header class="bg-[#040810]/80 backdrop-blur-md border-b border-slate-800/60 px-4 md:px-6 py-4 flex flex-col sm:flex-row gap-4 justify-between items-center no-print flex-shrink-0">
     <div class="flex items-center gap-3">
       <div class="p-1 bg-brand-500/10 rounded-xl border border-brand-500/20">
         <img src="/images/favicon.png" class="w-8 h-8 object-contain" alt="Jokare logo">
@@ -50,46 +50,48 @@
       </div>
     </div>
     
-    <nav class="flex items-center gap-1 bg-slate-900/60 p-1 rounded-xl border border-slate-800/80">
-      <a href="/" class="text-slate-400 hover:text-white font-semibold text-xs px-4 py-2 rounded-lg transition" data-en="&larr; Return to Workspace" data-ja="&larr; ワークスペースに戻る">&larr; Return to Workspace</a>
+    <nav class="flex items-center gap-1 bg-slate-900/60 p-1 rounded-xl border border-slate-800/80 w-full sm:w-auto justify-center">
+      <a href="/" class="text-slate-400 hover:text-white font-semibold text-xs px-4 py-2 rounded-lg transition text-center whitespace-nowrap" data-en="&larr; Return to Workspace" data-ja="&larr; ワークスペースに戻る">&larr; Return to Workspace</a>
     </nav>
 
-    <button class="bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-bold text-xs px-3 py-2 rounded-xl shadow-sm transition" onclick="toggleLanguage()">
+    <button class="bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-bold text-xs px-3 py-2 rounded-xl shadow-sm transition w-full sm:w-auto" onclick="toggleLanguage()">
       <span data-en="EN / 日本語" data-ja="日本語 / EN">EN / 日本語</span>
     </button>
   </header>
 
   <!-- Interactive Input Lead Form Module -->
-  <main class="flex-1 max-w-xl w-full mx-auto my-12 p-8 bg-[#050911]/60 border border-slate-800/60 shadow-2xl rounded-2xl flex flex-col justify-center">
-    <div class="mb-8 text-center">
-      <h2 class="text-2xl font-extrabold text-white tracking-tight" data-en="Custom Builds & Architecture Support" data-ja="特注システム開発・サポート窓口">Custom Builds & Architecture Support</h2>
-      <p class="text-xs text-slate-400 mt-2" data-en="Submit your team size, custom utility code requests, or platform operational specifications below." data-ja="社内専用ツールの開発、カスタムマトリクスの構築、プレミアムプランに関するご要望はこちらから。">Submit your details below.</p>
+  <main class="flex-1 max-w-xl w-full mx-auto px-4 my-6 sm:my-12 flex flex-col justify-center">
+    <div class="bg-[#050911]/60 border border-slate-800/60 shadow-2xl rounded-2xl p-6 sm:p-8">
+      <div class="mb-6 text-center">
+        <h2 class="text-xl sm:text-2xl font-extrabold text-white tracking-tight" data-en="Custom Builds & Architecture Support" data-ja="特注システム開発・サポート窓口">Custom Builds & Architecture Support</h2>
+        <p class="text-xs text-slate-400 mt-2" data-en="Submit your team size, custom utility code requests, or platform operational specifications below." data-ja="社内専用ツールの開発、カスタムマトリクスの構築、プレミアムプランに関するご要望はこちらから。">Submit your details below.</p>
+      </div>
+
+      <form id="contactForm" class="space-y-4sm:space-y-5">
+        <input type="hidden" id="source" name="source">
+
+        <div class="flex flex-col gap-1.5">
+          <label class="text-[10px] font-bold text-brand-500 uppercase tracking-widest" data-en="Full Identity Name" data-ja="お名前（または法人名）">Full Identity Name</label>
+          <input type="text" name="name" required class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/20 transition">
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+          <label class="text-[10px] font-bold text-brand-500 uppercase tracking-widest" data-en="Corporate Access Email" data-ja="メールアドレス">Corporate Access Email</label>
+          <input type="email" name="email" required class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/20 transition">
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+          <label class="text-[10px] font-bold text-brand-500 uppercase tracking-widest" data-en="Technical Specifications / Message" data-ja="開発要件・お問い合わせ内容">Technical Specifications / Message</label>
+          <textarea name="message" rows="4" required class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/20 transition resize-none"></textarea>
+        </div>
+
+        <button type="submit" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-3.5 px-4 rounded-xl transition shadow-lg shadow-brand-500/10 hover:shadow-brand-500/20 text-center text-xs uppercase tracking-wider">
+          Submit Architecture Inquiry
+        </button>
+
+        <p id="formFeedback" class="text-center text-sm font-semibold mt-4"></p>
+      </form>
     </div>
-
-    <form id="contactForm" class="space-y-5">
-      <input type="hidden" id="source" name="source">
-
-      <div class="flex flex-col gap-2">
-        <label class="text-[10px] font-bold text-brand-500 uppercase tracking-widest" data-en="Full Identity Name" data-ja="お名前（または法人名）">Full Identity Name</label>
-        <input type="text" name="name" required class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/20 transition">
-      </div>
-
-      <div class="flex flex-col gap-2">
-        <label class="text-[10px] font-bold text-brand-500 uppercase tracking-widest" data-en="Corporate Access Email" data-ja="メールアドレス">Corporate Access Email</label>
-        <input type="email" name="email" required class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/20 transition">
-      </div>
-
-      <div class="flex flex-col gap-2">
-        <label class="text-[10px] font-bold text-brand-500 uppercase tracking-widest" data-en="Technical Specifications / Message" data-ja="開発要件・お問い合わせ内容">Technical Specifications / Message</label>
-        <textarea name="message" rows="5" required class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/20 transition resize-none"></textarea>
-      </div>
-
-      <button type="submit" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-3.5 px-4 rounded-xl transition shadow-lg shadow-brand-500/10 hover:shadow-brand-500/20 text-center text-xs uppercase tracking-wider">
-        Submit Architecture Inquiry
-      </button>
-
-      <p id="formFeedback" class="text-center text-sm font-semibold mt-4"></p>
-    </form>
   </main>
 
   <!-- Clean Minimal Dark Footer Layout Element -->
