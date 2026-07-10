@@ -2,110 +2,189 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-
-  <title>Jokare – English Conversation, Foreign Guest Services & Japanese Goods</title>
-
-  <meta name="description"
-  content="Jokare offers English conversation, foreign guest services, and Japanese goods including anime figures and games.">
-
+  <title>Jokare Workspace | Free Developer & Agency Business Utilities</title>
+  <meta name="description" content="Free browser-based invoice generators, remote tracking hubs, and curated enterprise application matrices.">
   <link rel="canonical" href="https://jokare.com/">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Favicon -->
   <link rel="shortcut icon" href="/images/favicon.png">
   <link rel="icon" type="image/png" href="/images/favicon.png">
   <link rel="apple-touch-icon" href="/images/favicon.png">
 
-  <!-- Browser theme colour -->
   <meta name="theme-color" content="#008080">
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Jokare">
-  <meta property="og:description" content="English conversation, foreign guest services, and Japanese goods including anime figures and games.">
-  <meta property="og:image" content="https://jokare.com/images/logo.png">
-  <meta property="og:url" content="https://jokare.com/">
-  <meta property="og:type" content="website">
-
-  <!-- Structured Data for Google -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Jokare",
-    "url": "https://jokare.com",
-    "logo": "https://jokare.com/images/logo.png",
-    "description": "English conversation services, foreign guest services, and Japanese products."
-  }
-  </script>
-  
   <link rel="stylesheet" href="/style.css">
   <script src="/script.js" defer></script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @media print {
+      body * { visibility: hidden; }
+      #invoice-sheet, #invoice-sheet * { visibility: visible; }
+      #invoice-sheet { position: absolute; left: 0; top: 0; width: 100%; color: black; background: white; }
+      .no-print { display: none !important; }
+    }
+  </style>
 </head>
-<body>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased h-screen overflow-hidden flex flex-col">
 
-<div id="header"></div>
+  <header class="bg-[#008080] text-white p-4 flex justify-between items-center shadow no-print flex-shrink-0">
+    <div class="flex items-center gap-3">
+      <img src="/images/logo.png" class="w-10 h-10 object-contain" alt="Jokare logo">
+      <h1 class="text-xl font-black tracking-wider" data-en="Jokare" data-ja="ジョカレ">Jokare</h1>
+    </div>
+    
+    <nav class="flex gap-6 font-bold text-sm">
+      <button onclick="switchWorkspace('invoice')" id="nav-invoice" class="bg-white/20 px-3 py-1.5 rounded-lg transition" data-en="Invoice Engine" data-ja="請求書作成">Invoice Engine</button>
+      <button onclick="switchWorkspace('marketplace')" id="nav-marketplace" class="text-white/80 hover:text-white px-3 py-1.5 transition" data-en="B2B Marketplace" data-ja="企業向けストア">B2B Marketplace</button>
+      <a href="/contact/" class="text-white/80 hover:text-white px-3 py-1.5 transition" data-en="Custom Solutions" data-ja="特注開発窓口">Custom Solutions</a>
+    </nav>
 
-<h1 class="hero-title"
-    data-en="Connecting Japan and the World"
-    data-ja="日本と世界をつなぐ">
-Connecting Japan and the World
-</h1>
-  
-<div class="tagline"
-     data-en="Practice English with native speakers, hire a foreign guest, or buy authentic Japanese goods."
-     data-ja="ネイティブと英語で交流し、外国人ゲストを依頼したり、日本の商品を購入できます。">
-Practice English with native speakers, hire a foreign guest, or buy authentic Japanese goods.
-</div>
-  
-<main class="services-grid">
-  <div class="service">
-  <img src="/images/language.png" class="service-img" loading="lazy" alt="Language services">
+    <button class="bg-white text-[#008080] font-bold text-xs px-3 py-2 rounded-xl border-none shadow-sm hover:bg-slate-100 transition" onclick="toggleLanguage()">
+      <span data-en="EN / 日本語" data-ja="日本語 / EN">EN / 日本語</span>
+    </button>
+  </header>
 
-  <h2 data-en="Language" data-ja="語学">Language</h2>
+  <div class="flex-1 flex overflow-hidden">
+    
+    <div id="view-invoice" class="w-full h-full flex">
+      <section class="w-1/2 p-8 overflow-y-auto border-r no-print space-y-6 bg-white">
+        <div>
+          <h2 class="text-2xl font-extrabold text-slate-900" data-en="Global Invoice Engine" data-ja="グローバル請求書作成ツール">Global Invoice Engine</h2>
+          <p class="text-xs text-slate-500 mt-1" data-en="Secure browser compiler. Processing happens entirely within your tab environment." data-ja="ローカル環境で動作する安全なモジュール。データはサーバーへ送信されません。">Secure browser compiler.</p>
+        </div>
 
-  <p data-en="English conversation with native speakers"
-     data-ja="ネイティブと英語で会話">
-  English conversation with native speakers
-  </p>
+        <div class="space-y-4">
+          <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200/60 space-y-4">
+            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider" data-en="Contractor Profile" data-ja="事業者情報">Contractor Profile</label>
+            <input type="text" id="in-sender" oninput="syncInvoiceData()" value="Alex Studio London Ltd" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-teal-600">
+            <input type="text" id="in-tax" oninput="syncInvoiceData()" placeholder="Business ID / Tax ID Number (e.g. GB1234567)" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-teal-600">
+          </div>
 
-  <a class="cta" href="/language/" data-en="Learn More" data-ja="詳しく見る">Learn More</a>
-</div>
+          <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200/60 space-y-4">
+            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider" data-en="Line Particulars" data-ja="請求明細明細">Line Particulars</label>
+            <input type="text" id="in-desc" oninput="syncInvoiceData()" value="Digital Strategy & Systems Infrastructure Consultation" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-teal-600">
+            <div class="grid grid-cols-3 gap-2">
+              <select id="in-curr" onchange="syncInvoiceData()" class="bg-white border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none">
+                <option value="£">GBP (£)</option>
+                <option value="$">USD ($)</option>
+                <option value="€">EUR (€)</option>
+                <option value="¥">JPY (¥)</option>
+              </select>
+              <input type="number" id="in-price" oninput="syncInvoiceData()" value="2400" class="col-span-2 bg-white border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-teal-600">
+            </div>
+          </div>
+        </div>
 
-  <div class="service">
-  <img src="/images/store.png" class="service-img" loading="lazy" alt="Japanese store">
+        <button onclick="window.print()" class="w-full bg-teal-700 hover:bg-teal-800 text-white font-bold py-3.5 px-4 rounded-xl transition flex items-center justify-center space-x-2 shadow-md shadow-teal-700/10">
+          <span>📥</span> <span data-en="Print / Download Secure PDF" data-ja="印刷またはPDFとして出力">Print / Download Secure PDF</span>
+        </button>
+      </section>
 
-  <h2 data-en="Store" data-ja="ストア">Store</h2>
+      <section class="w-1/2 p-8 bg-slate-100 flex justify-center items-start overflow-y-auto">
+        <div id="invoice-sheet" class="w-full max-w-md bg-white text-slate-900 p-8 shadow-xl rounded border flex flex-col justify-between min-h-[520px]">
+          <div>
+            <div class="flex justify-between items-start border-b pb-4 mb-5">
+              <div>
+                <h1 class="text-2xl font-black tracking-tight text-slate-900" data-en="INVOICE" data-ja="請求書">INVOICE</h1>
+                <p class="text-[10px] text-slate-400 mt-0.5">Date Issued: 2026/07/10</p>
+              </div>
+              <div class="text-right text-xs">
+                <p class="font-bold text-slate-900" id="out-sender">Alex Studio London Ltd</p>
+                <p class="text-[10px] text-slate-500 mt-0.5" id="out-tax">Tax ID: Not Set</p>
+              </div>
+            </div>
+            <table class="w-full text-left text-xs mb-4">
+              <thead>
+                <tr class="border-b text-slate-400 text-[10px] uppercase">
+                  <th class="pb-1 font-semibold">Description</th>
+                  <th class="pb-1 text-right font-semibold">Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-b">
+                  <td class="py-2.5 text-slate-700 font-medium" id="out-desc">Systems Infrastructure Consultation</td>
+                  <td class="py-2.5 text-right font-bold text-slate-900" id="out-price">£2,400</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="border-t pt-4 font-black text-lg text-slate-900 flex justify-between border-dashed">
+            <span data-en="Total Balance Due:" data-ja="請求合計金額:">Total Balance Due:</span>
+            <span id="out-total">£2,400</span>
+          </div>
+        </div>
+      </section>
+    </div>
 
-  <p data-en="Japanese goods, anime figures and games"
-     data-ja="日本の商品・アニメフィギュア・ゲーム">
-  Japanese goods, anime figures and games
-  </p>
+    <div id="view-marketplace" class="w-full h-full p-10 overflow-y-auto bg-slate-50 hidden">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-black text-slate-900 tracking-tight" data-en="Enterprise Cloud Infrastructure Index" data-ja="最高峰ビジネスインフラ・マーケット">Enterprise Cloud Infrastructure Index</h2>
+        <p class="text-sm text-slate-500 mt-1 mb-8" data-en="Deploy elite systems engineering stacks, CRM networks, and task engines verified for global corporations." data-ja="グローバル企業に検証された最先端開発インフラ、SaaS CRM、タスク運用マトリクス。">Deploy elite systems engineering stacks.</p>
 
-  <a class="cta" href="/store/" data-en="Visit Store" data-ja="ストアを見る">Visit Store</a>
-</div>
+        <div class="grid grid-cols-2 gap-6">
+          <div class="p-6 border rounded-2xl bg-white flex flex-col justify-between transition hover:shadow-md border-slate-200">
+            <div>
+              <div class="flex justify-between items-start mb-3">
+                <h3 class="font-extrabold text-base text-slate-900">Monday.com Corporate</h3>
+                <span class="text-[10px] font-bold bg-teal-100 text-teal-800 px-2 py-0.5 rounded border border-teal-200">Operations</span>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed mb-6" data-en="Complete architectural pipeline system. Centralize workflow actions, cross-team tasks, and real-time sprint fields across global development setups." data-ja="組織全体のタスク設計やステータス追跡をプログラムする業務自動化エンジン。開発管理や工程の一元化に最適。">Complete architectural pipeline system.</p>
+            </div>
+            <a href="#" target="_blank" class="block w-full text-center bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold py-3 rounded-xl transition shadow-sm" data-en="Deploy Infrastructure Asset &rarr;" data-ja="インフラアセットを導入 &rarr;">Deploy Infrastructure Asset &rarr;</a>
+          </div>
 
-  <div class="service">
-  <img src="/images/rent.png" class="service-img" loading="lazy" alt="Rent services">
+          <div class="p-6 border rounded-2xl bg-white flex flex-col justify-between transition hover:shadow-md border-slate-200">
+            <div>
+              <div class="flex justify-between items-start mb-3">
+                <h3 class="font-extrabold text-base text-slate-900">HubSpot Suite</h3>
+                <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded border border-emerald-200">Enterprise CRM</span>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed mb-6" data-en="The corporate industry baseline for client tracking matrices. Synthesize multi-channel revenue data, visual inbound funnels, and secure customer ledgers." data-ja="企業データを集約する世界標準のCRM設計プラットフォーム。インバウンドリード獲得から商談データの一元管理まで網羅。">The corporate industry baseline for client tracking matrices.</p>
+            </div>
+            <a href="#" target="_blank" class="block w-full text-center bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold py-3 rounded-xl transition shadow-sm" data-en="Deploy Infrastructure Asset &rarr;" data-ja="インフラアセットを導入 &rarr;">Deploy Infrastructure Asset &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <h2 data-en="Rent" data-ja="レンタル">Rent</h2>
+  </div>
 
-  <p data-en="Hire a foreign guest for events or experiences"
-     data-ja="イベントや交流のための外国人ゲスト">
-  Hire a foreign guest for events or experiences
-  </p>
+  <script>
+    function switchWorkspace(targetId) {
+      document.getElementById('view-invoice').classList.add('hidden');
+      document.getElementById('view-marketplace').classList.add('hidden');
+      
+      document.getElementById('nav-invoice').className = "text-white/80 hover:text-white px-3 py-1.5 transition";
+      document.getElementById('nav-marketplace').className = "text-white/80 hover:text-white px-3 py-1.5 transition";
 
-  <a class="cta" href="/rent/" data-en="Hire Now" data-ja="今すぐ依頼">Hire Now</a>
-</div>
-</main>
+      if(targetId === 'invoice') {
+        document.getElementById('view-invoice').classList.remove('hidden');
+        document.getElementById('nav-invoice').className = "bg-white/20 px-3 py-1.5 rounded-lg transition text-white font-bold";
+      } else {
+        document.getElementById('view-marketplace').classList.remove('hidden');
+        document.getElementById('nav-marketplace').className = "bg-white/20 px-3 py-1.5 rounded-lg transition text-white font-bold";
+      }
+    }
 
-<footer>© Jokare</footer>
+    function syncInvoiceData() {
+      const sender = document.getElementById('in-sender').value || '---';
+      const tax = document.getElementById('in-tax').value;
+      const desc = document.getElementById('in-desc').value || '---';
+      const curr = document.getElementById('in-curr').value;
+      const price = parseFloat(document.getElementById('in-price').value) || 0;
+
+      document.getElementById('out-sender').innerText = sender;
+      document.getElementById('out-tax').innerText = tax ? "Tax ID: " + tax : "Tax ID: Not Set";
+      document.getElementById('out-desc').innerText = desc;
+      
+      const totalStr = curr + price.toLocaleString();
+      document.getElementById('out-price').innerText = totalStr;
+      document.getElementById('out-total').innerText = totalStr;
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(syncInvoiceData, 200);
+    });
+  </script>
 </body>
 </html>
-
-
-
-
-
-
-
