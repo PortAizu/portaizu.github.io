@@ -5,25 +5,13 @@
   <title>Jokare Hub | Premium Developer & Agency Infrastructure Utilities</title>
   <meta name="description" content="Secure browser-based invoice engines, local workflow planners, and curated corporate application frameworks.">
   <link rel="canonical" href="https://jokare.com/">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
   <!-- Favicon Asset Engine -->
   <link rel="shortcut icon" href="/images/favicon.png">
   <link rel="icon" type="image/png" href="/images/favicon.png">
   <link rel="apple-touch-icon" href="/images/favicon.png">
 
-  <!-- Structured Data for Google Indexing -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Jokare",
-    "url": "https://jokare.com",
-    "logo": "https://jokare.com/images/favicon.png",
-    "description": "Premium browser-based business utilities, secure invoice engines, and curated cloud infrastructure software for enterprise teams."
-  }
-  </script>
-  
   <meta name="theme-color" content="#090d16">
   
   <!-- Injected Tailwind CSS for bleeding-edge SaaS UI styling -->
@@ -57,10 +45,10 @@
   </style>
   <script src="/script.js" defer></script>
 </head>
-<body class="bg-[#090d16] text-slate-100 h-screen overflow-hidden flex flex-col">
+<body class="bg-[#090d16] text-slate-100 min-h-screen md:h-screen md:overflow-hidden flex flex-col">
 
   <!-- Premium Application Top Bar Navigation -->
-  <header class="bg-[#040810]/80 backdrop-blur-md border-b border-slate-800/60 px-6 py-4 flex justify-between items-center no-print flex-shrink-0">
+  <header class="bg-[#040810]/80 backdrop-blur-md border-b border-slate-800/60 px-4 md:px-6 py-4 flex flex-col sm:flex-row gap-4 justify-between items-center no-print flex-shrink-0">
     <div class="flex items-center gap-3">
       <div class="p-1 bg-brand-500/10 rounded-xl border border-brand-500/20">
         <img src="/images/favicon.png" class="w-8 h-8 object-contain" alt="Jokare logo">
@@ -71,37 +59,37 @@
       </div>
     </div>
     
-    <nav class="flex items-center gap-1 bg-slate-900/60 p-1 rounded-xl border border-slate-800/80">
-      <button onclick="switchWorkspace('invoice')" id="nav-invoice" class="bg-brand-500 text-white font-semibold text-xs px-4 py-2 rounded-lg transition shadow-md shadow-brand-500/10" data-en="Invoice Engine" data-ja="請求書作成">Invoice Engine</button>
-      <button onclick="switchWorkspace('marketplace')" id="nav-marketplace" class="text-slate-400 hover:text-white font-semibold text-xs px-4 py-2 rounded-lg transition" data-en="B2B Marketplace" data-ja="企業向けストア">B2B Marketplace</button>
-      <a href="/contact/" class="text-slate-400 hover:text-white font-semibold text-xs px-4 py-2 rounded-lg transition" data-en="Custom Build" data-ja="特注開発窓口">Custom Build</a>
+    <nav class="flex items-center gap-1 bg-slate-900/60 p-1 rounded-xl border border-slate-800/80 w-full sm:w-auto overflow-x-auto justify-center">
+      <button onclick="switchWorkspace('invoice')" id="nav-invoice" class="bg-brand-500 text-white font-semibold text-xs px-3 sm:px-4 py-2 rounded-lg transition shadow-md shadow-brand-500/10 whitespace-nowrap" data-en="Invoice Engine" data-ja="請求書作成">Invoice Engine</button>
+      <button onclick="switchWorkspace('marketplace')" id="nav-marketplace" class="text-slate-400 hover:text-white font-semibold text-xs px-3 sm:px-4 py-2 rounded-lg transition whitespace-nowrap" data-en="B2B Marketplace" data-ja="企業向けストア">B2B Marketplace</button>
+      <a href="/contact/" class="text-slate-400 hover:text-white font-semibold text-xs px-3 sm:px-4 py-2 rounded-lg transition whitespace-nowrap" data-en="Custom Build" data-ja="特注開発窓口">Custom Build</a>
     </nav>
 
-    <button class="bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-bold text-xs px-3 py-2 rounded-xl shadow-sm transition" onclick="toggleLanguage()">
+    <button class="bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-bold text-xs px-3 py-2 rounded-xl shadow-sm transition w-full sm:w-auto" onclick="toggleLanguage()">
       <span data-en="EN / 日本語" data-ja="日本語 / EN">EN / 日本語</span>
     </button>
   </header>
 
   <!-- Main Canvas Dynamic Screen -->
-  <div class="flex-1 flex overflow-hidden">
+  <div class="flex-1 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden">
     
     <!-- SUB-MODULE 1: SECURE LOCAL ACCOUNTING MODALITY -->
-    <div id="view-invoice" class="w-full h-full flex">
+    <div id="view-invoice" class="w-full flex flex-col md:flex-row h-full">
       <!-- Parameters Panel -->
-      <section class="w-1/2 p-8 overflow-y-auto border-r border-slate-800/60 no-print space-y-6 bg-[#050911]">
+      <section class="w-full md:w-1/2 p-4 sm:p-8 md:overflow-y-auto border-b md:border-b-0 md:border-r border-slate-800/60 no-print space-y-6 bg-[#050911]">
         <div>
           <h2 class="text-xl font-extrabold text-white tracking-tight" data-en="Secure Billing Framework" data-ja="安全請求書ジェネレーター">Secure Billing Framework</h2>
           <p class="text-xs text-slate-400 mt-1" data-en="Encrypted locally inside the active client cache. Your records are completely private." data-ja="ブラウザのローカルメモリ内で即時生成。データが外部へ送信されることはありません。">Encrypted locally inside the active client cache.</p>
         </div>
 
         <div class="space-y-4">
-          <div class="bg-slate-900/40 p-5 rounded-2xl border border-slate-800/60 space-y-4">
+          <div class="bg-slate-900/40 p-4 sm:p-5 rounded-2xl border border-slate-800/60 space-y-4">
             <label class="block text-[10px] font-bold text-brand-500 uppercase tracking-widest" data-en="Origin Identity Profile" data-ja="請求元・事業者情報">Origin Identity Profile</label>
             <input type="text" id="in-sender" oninput="syncInvoiceData()" value="Alex Studio London Ltd" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-3 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/20 transition">
             <input type="text" id="in-tax" oninput="syncInvoiceData()" placeholder="Corporate Identification / Vat ID (e.g. GB1234567)" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-3 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/20 transition">
           </div>
 
-          <div class="bg-slate-900/40 p-5 rounded-2xl border border-slate-800/60 space-y-4">
+          <div class="bg-slate-900/40 p-4 sm:p-5 rounded-2xl border border-slate-800/60 space-y-4">
             <label class="block text-[10px] font-bold text-brand-500 uppercase tracking-widest" data-en="Statement Metrics" data-ja="請求項目明細設定">Statement Metrics</label>
             <input type="text" id="in-desc" oninput="syncInvoiceData()" value="Systems Infrastructure Architecture & Strategy Consultation" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-3 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/20 transition">
             <div class="grid grid-cols-3 gap-3">
@@ -122,16 +110,16 @@
       </section>
 
       <!-- Realtime Canvas Sheet Review Panel -->
-      <section class="w-1/2 p-8 bg-[#04070d] flex justify-center items-start overflow-y-auto">
-        <div id="invoice-sheet" class="w-full max-w-md bg-white text-slate-900 p-8 shadow-2xl rounded-xl border border-slate-200 flex flex-col justify-between min-h-[540px]">
+      <section class="w-full md:w-1/2 p-4 sm:p-8 bg-[#04070d] flex justify-center items-start overflow-y-auto">
+        <div id="invoice-sheet" class="w-full max-w-md bg-white text-slate-900 p-6 sm:p-8 shadow-2xl rounded-xl border border-slate-200 flex flex-col justify-between min-h-[480px] sm:min-h-[540px] my-4">
           <div>
             <div class="flex justify-between items-start border-b border-slate-200 pb-5 mb-5">
               <div>
                 <h1 class="text-2xl font-black tracking-tight text-slate-900">INVOICE</h1>
                 <p class="text-[10px] text-slate-400 font-semibold mt-0.5 uppercase tracking-wider">Issued: 2026/07/10</p>
               </div>
-              <div class="text-right text-xs">
-                <p class="font-bold text-slate-900" id="out-sender">Alex Studio London Ltd</p>
+              <div class="text-right text-xs pl-2">
+                <p class="font-bold text-slate-900 break-words max-w-[150px]" id="out-sender">Alex Studio London Ltd</p>
                 <p class="text-[10px] text-slate-500 font-medium mt-0.5" id="out-tax">Tax ID: Not Set</p>
               </div>
             </div>
@@ -144,13 +132,13 @@
               </thead>
               <tbody>
                 <tr class="border-b border-slate-100">
-                  <td class="py-3 text-slate-700 font-medium pr-4 leading-relaxed" id="out-desc">Systems Infrastructure Consultation</td>
+                  <td class="py-3 text-slate-700 font-medium pr-4 leading-relaxed break-words" id="out-desc">Systems Infrastructure Consultation</td>
                   <td class="py-3 text-right font-bold text-slate-900 whitespace-nowrap" id="out-price">£2,400</td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <div class="border-t-2 border-slate-900 pt-4 font-black text-lg text-slate-900 flex justify-between border-dashed">
+          <div class="border-t-2 border-slate-900 pt-4 font-black text-sm sm:text-lg text-slate-900 flex justify-between border-dashed">
             <span data-en="Gross Balance Due:" data-ja="請求額合計:">Gross Balance Due:</span>
             <span id="out-total">£2,400</span>
           </div>
@@ -159,12 +147,12 @@
     </div>
 
     <!-- SUB-MODULE 2: ENTERPRISE SOFTWARE ACQUISITION PIPELINE -->
-    <div id="view-marketplace" class="w-full h-full p-10 overflow-y-auto bg-[#050911] hidden">
+    <div id="view-marketplace" class="w-full h-full p-4 sm:p-10 overflow-y-auto bg-[#050911] hidden">
       <div class="max-w-4xl mx-auto">
         <h2 class="text-2xl font-black text-white tracking-tight" data-en="Verified Enterprise Architecture Matrix" data-ja="厳選B2Bエンタープライズ・クラウド索引">Verified Enterprise Architecture Matrix</h2>
         <p class="text-sm text-slate-400 mt-1 mb-8" data-en="Deploy high-ticket client systems, enterprise CRM nodes, and corporate operation pipelines." data-ja="数千人規模の運用に対応する最高峰のプロジェクト基盤、営業データ管理、業務自動化ツール群。">Deploy high-ticket client systems.</p>
 
-        <div class="grid grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <!-- Premium Affiliate Block Asset Frame 1 -->
           <div class="p-6 border border-slate-800/80 rounded-2xl bg-slate-900/20 hover:bg-slate-900/40 flex flex-col justify-between transition group hover:border-brand-500/30">
             <div>
@@ -199,15 +187,15 @@
       document.getElementById('view-invoice').classList.add('hidden');
       document.getElementById('view-marketplace').classList.add('hidden');
       
-      document.getElementById('nav-invoice').className = "text-slate-400 hover:text-white font-semibold text-xs px-4 py-2 rounded-lg transition";
-      document.getElementById('nav-marketplace').className = "text-slate-400 hover:text-white font-semibold text-xs px-4 py-2 rounded-lg transition";
+      document.getElementById('nav-invoice').className = "text-slate-400 hover:text-white font-semibold text-xs px-4 py-2 rounded-lg transition whitespace-nowrap";
+      document.getElementById('nav-marketplace').className = "text-slate-400 hover:text-white font-semibold text-xs px-4 py-2 rounded-lg transition whitespace-nowrap";
 
       if(targetId === 'invoice') {
         document.getElementById('view-invoice').classList.remove('hidden');
-        document.getElementById('nav-invoice').className = "bg-brand-500 text-white font-semibold text-xs px-4 py-2 rounded-lg transition shadow-md shadow-brand-500/10";
+        document.getElementById('nav-invoice').className = "bg-brand-500 text-white font-semibold text-xs px-4 py-2 rounded-lg transition shadow-md shadow-brand-500/10 whitespace-nowrap";
       } else {
         document.getElementById('view-marketplace').classList.remove('hidden');
-        document.getElementById('nav-marketplace').className = "bg-brand-500 text-white font-semibold text-xs px-4 py-2 rounded-lg transition shadow-md shadow-brand-500/10";
+        document.getElementById('nav-marketplace').className = "bg-brand-500 text-white font-semibold text-xs px-4 py-2 rounded-lg transition shadow-md shadow-brand-500/10 whitespace-nowrap";
       }
     }
 
