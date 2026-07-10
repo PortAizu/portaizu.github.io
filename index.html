@@ -45,15 +45,21 @@
     }
   </script>
 
- <style>
+<style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
     
-    /* THE PRINT ENGINE OVERHAUL */
+    /* DUAL MODALITY PRINT CONTROLLER */
     @media print {
       body * { visibility: hidden; }
-      #invoice-sheet, #invoice-sheet * { visibility: visible; }
-      #invoice-sheet { 
+      
+      /* Make both target sheets targetable by the printer */
+      #invoice-sheet, #invoice-sheet *, #contract-sheet, #contract-sheet * { 
+        visibility: visible; 
+      }
+      
+      /* Standardize document presentation formatting */
+      #invoice-sheet, #contract-sheet { 
         position: absolute; 
         left: 0; 
         top: 0; 
