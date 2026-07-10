@@ -1,22 +1,15 @@
-<header>
-  <div class="brand">
-    <img src="/images/logo.png" class="logo" alt="Jokare logo">
-    <h1 data-en="Jokare" data-ja="ジョカレ">Jokare</h1>
+<header style="background: #008080; display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; color: white; font-family: sans-serif; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+  <div class="brand" style="display: flex; align-items: center; gap: 12px;">
+    <img src="/images/logo.png" class="logo" style="width: 40px; height: 40px; object-fit: contain;" alt="Jokare logo">
+    <h1 style="margin: 0; font-size: 1.25rem; font-weight: 900; tracking-wide" data-en="Jokare" data-ja="ジョカレ">Jokare</h1>
   </div>
 
-  <nav>
-    <a href="/" data-en="Home" data-ja="ホーム">Home</a>
-    <a href="/language/" data-en="Language" data-ja="語学">Language</a>
-    <a href="/store/" data-en="Store" data-ja="ストア">Store</a>
-    <a href="/rent/" data-en="Rent" data-ja="レンタル">Rent</a>
-    <a href="/contact/" data-en="Contact" data-ja="お問い合わせ">Contact</a>
+  <nav style="display: flex; gap: 24px; font-weight: bold; font-size: 0.875rem;">
+    <a href="/" style="color: white; text-decoration: none;" data-en="Workspace Home" data-ja="ワークスペースに戻る">Workspace Home</a>
+    <a href="/contact/" style="color: white; text-decoration: none;" data-en="Contact Support" data-ja="お問い合わせ">Contact Support</a>
   </nav>
 
-  <button class="lang-toggle" onclick="toggleLanguage()">
+  <button class="lang-toggle" style="background: white; color: #008080; font-weight: bold; font-size: 0.75rem; padding: 8px 12px; border-radius: 12px; border: none; cursor: pointer; box-shadow: 0 1px 2px rgba(0,0,0,0.05);" onclick="toggleLanguage()">
     <span data-en="EN / 日本語" data-ja="日本語 / EN">EN / 日本語</span>
   </button>
 </header>
-
-
-
-
