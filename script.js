@@ -10,7 +10,24 @@ function toggleLanguage() {
     if (text) { el.innerText = text; }
   });
 
-  // 2. Safely capture elements (with null checking guards)
+  // 2. Synchronize Form and Dynamic Layout Placeholders (Contact Page)
+  const nameInput = document.querySelector('input[name="name"]');
+  const emailInput = document.querySelector('input[name="_replyto"]'); // Updated to catch Formspree's tag
+  const msgInput = document.querySelector('textarea[name="message"]');
+
+  if (nameInput && emailInput && msgInput) {
+    if (currentLang === 'ja') {
+      nameInput.placeholder = "例：山田 太郎";
+      emailInput.placeholder = "example@company.com";
+      msgInput.placeholder = "どのようなツールやシステムのカスタマイズをご希望ですか？詳細をご記入ください。";
+    } else {
+      nameInput.placeholder = "Enter your full name or company";
+      emailInput.placeholder = "example@company.com";
+      msgInput.placeholder = "Describe your specific tool customization requirements here...";
+    }
+  }
+
+  // 3. Safely capture elements (with null checking guards for main workspace)
   const inSender = document.getElementById('in-sender');
   const inDesc = document.getElementById('in-desc');
   const inPartyA = document.getElementById('in-party-a');
@@ -18,7 +35,7 @@ function toggleLanguage() {
   const inInvDate = document.getElementById('in-invoice-date');
   const inConDate = document.getElementById('in-contract-date');
   
-  // 3. DYNAMIC VALUE LOCALIZATION (Only runs if the inputs exist on the current page)
+  // 4. DYNAMIC VALUE LOCALIZATION (Only runs if the inputs exist on the workspace page)
   if (inSender && inDesc && inPartyA && inPurpose && inInvDate && inConDate) {
     if (currentLang === 'ja') {
       if (!inSender.value || inSender.value === "Alex Studio London Ltd") inSender.value = "株式会社アレックス・スタジオ・ジャパン";
@@ -39,7 +56,7 @@ function toggleLanguage() {
     }
   }
 
-  // 4. Update placeholder formatting hints safely
+  // 5. Update placeholder formatting hints safely
   const clientInput = document.getElementById('in-party-b');
   if (clientInput) {
     clientInput.placeholder = currentLang === 'ja' ? "企業名・取引先法人名を入力してください" : "Enter Corporate Client Full Entity Name";
@@ -50,7 +67,7 @@ function toggleLanguage() {
     taxInput.placeholder = currentLang === 'ja' ? "法人番号 / 適格請求書発行事業者登録番号 (例: T1234567890123)" : "Corporate Identification / Vat ID (e.g. GB1234567)";
   }
 
-  // 5. Trigger updates safely
+  // 6. Trigger updates safely
   syncInvoiceData();
   syncContractData();
 }
@@ -63,7 +80,6 @@ function syncInvoiceData() {
   const inPrice = document.getElementById('in-price');
   const inInvDate = document.getElementById('in-invoice-date');
 
-  // Guard loop to prevent execution if not on the workspace panel page
   if (!inSender || !inDesc || !inCurr || !inPrice || !inInvDate) return;
 
   const sender = inSender.value || '---';
@@ -96,7 +112,6 @@ function syncContractData() {
   const inPurpose = document.getElementById('in-purpose');
   const inConDate = document.getElementById('in-contract-date');
 
-  // Guard loop to prevent execution if not on the workspace panel page
   if (!inPartyA || !inPartyB || !inPurpose || !inConDate) return;
 
   const partyA = inPartyA.value || '---';
@@ -115,7 +130,6 @@ function syncContractData() {
   if (contractDateOut) contractDateOut.innerText = dateVal;
 }
 
-// Bind initialization functions safely
 window.addEventListener('DOMContentLoaded', () => {
   setTimeout(syncInvoiceData, 200);
   setTimeout(syncContractData, 200);
