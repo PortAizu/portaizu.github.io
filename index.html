@@ -128,4 +128,28 @@
     <nav class="flex items-center gap-1 bg-slate-900/60 p-1 rounded-xl border border-slate-800/80 w-full sm:w-auto overflow-x-auto justify-center">
       <button onclick="switchWorkspace('invoice')" id="nav-invoice" class="bg-brand-500 text-white font-semibold text-xs px-3 sm:px-4 py-2 rounded-lg transition shadow-md shadow-brand-500/10 whitespace-nowrap" data-en="Invoice Engine" data-ja="請求書作成">Invoice Engine</button>
       <button onclick="switchWorkspace('contract')" id="nav-contract" class="text-slate-400 hover:text-white font-semibold text-xs px-3 sm:px-4 py-2 rounded-lg transition whitespace-nowrap" data-en="NDA Generator" data-ja="契約書作成">NDA Generator</button>
-      <button onclick="switchWorkspace('marketplace')" id="nav-marketplace" class="text-slate-400 hover:text-white font-semibold text-xs px-3 sm:px-4 py-2 rounded-lg transition whitespace-nowrap" data-
+      <button onclick="switchWorkspace('marketplace')" id="nav-marketplace" class="text-slate-400 hover:text-white font-semibold text-xs px-3 sm:px-4 py-2 rounded-lg transition whitespace-nowrap" data-en="Marketplace" data-ja="マーケットプレイス">Marketplace</button>
+    </nav>
+  </header>
+
+  <main class="flex-1 overflow-y-auto p-4 md:p-6">
+    
+    <div id="invoice-sheet" class="block max-w-4xl mx-auto bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+      <h2 class="text-xl font-bold mb-4">Invoice Engine</h2>
+      <p class="text-slate-400 text-sm">Invoice utility interface elements go here.</p>
+    </div>
+
+    <div id="contract-sheet" class="hidden max-w-4xl mx-auto bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+      <h2 class="text-xl font-bold mb-4">NDA Generator</h2>
+      <p class="text-slate-400 text-sm">Contract utility interface elements go here.</p>
+    </div>
+
+    <div id="marketplace-sheet" class="hidden max-w-4xl mx-auto bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+      <h2 class="text-xl font-bold mb-4">Infrastructure Marketplace</h2>
+      <p class="text-slate-400 text-sm">Marketplace curation elements go here.</p>
+    </div>
+
+  </main>
+
+</body>
+</html>
