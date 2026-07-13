@@ -57,7 +57,7 @@
         visibility: visible; 
       }
       
-      #invoice-sheet, #contract-sheet { 
+#invoice-sheet { 
         position: absolute; 
         left: 0; 
         top: 0; 
@@ -65,8 +65,14 @@
         max-width: 100% !important;
         box-shadow: none !important; 
         border: none !important;
+        padding: 2.5rem !important; /* Matches contract margins */
+        margin: 0 !important;
+        color: black !important; 
         background: white !important; 
-        color: #0f172a !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        min-height: 297mm !important; /* Forces A4 full-height page bounding */
       }
 
       /* Tailor the contract layout specifically to fill out letter/A4 paper */
