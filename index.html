@@ -49,7 +49,7 @@
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
     
-    /* THE CORPORATE PAPER LAYOUT ENGINE */
+    /* THE CLEAN PRINT ENGINE RESET */
     @media print {
       body * { visibility: hidden; }
       
@@ -57,7 +57,7 @@
         visibility: visible; 
       }
       
-#invoice-sheet { 
+      #invoice-sheet, #contract-sheet { 
         position: absolute; 
         left: 0; 
         top: 0; 
@@ -65,19 +65,19 @@
         max-width: 100% !important;
         box-shadow: none !important; 
         border: none !important;
-        padding: 2.5rem !important; /* Matches contract margins */
+        padding: 2.5rem !important;
         margin: 0 !important;
-        color: black !important; 
         background: white !important; 
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: space-between !important;
-        min-height: 297mm !important; /* Forces A4 full-height page bounding */
+        color: #0f172a !important;
+      }
+
+      /* Fix the Invoice total to sit elegantly beneath the table with a clean air gap */
+      #invoice-sheet div:last-child {
+        margin-top: 5rem !important;
       }
 
       /* Tailor the contract layout specifically to fill out letter/A4 paper */
       #contract-sheet {
-        padding: 2.5rem !important;
         font-size: 14px !important;
         line-height: 1.8 !important;
       }
@@ -101,7 +101,7 @@
         color: #334155 !important;
       }
 
-      /* Force the signature blocks to spread across the bottom elegantly */
+      /* Fix the signature blocks layout */
       #contract-sheet .grid {
         display: flex !important;
         justify-content: space-between !important;
