@@ -42,13 +42,56 @@
     }
   </script>
 
-  <style>
+<style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    
+    /* THE BULLETPROOF PRINT ENGINE */
     @media print {
       body * { visibility: hidden; }
-      #invoice-sheet, #invoice-sheet *, #contract-sheet, #contract-sheet * { visibility: visible; }
-      #invoice-sheet, #contract-sheet { position: absolute; left: 0; top: 0; width: 100%; color: black !important; background: white !important; }
+      
+      #invoice-sheet, #invoice-sheet *, #contract-sheet, #contract-sheet * { 
+        visibility: visible; 
+      }
+      
+      #invoice-sheet, #contract-sheet { 
+        position: absolute; 
+        left: 0; 
+        top: 0; 
+        width: 100% !important; 
+        max-width: 100% !important;
+        box-shadow: none !important; 
+        border: none !important;
+        padding: 3rem !important; /* Adds clean corporate framing margins to both */
+        margin: 0 !important;
+        background: white !important; 
+        color: #0f172a !important;
+      }
+
+      /* Tailor the contract sheet text layout specifically on paper */
+      #contract-sheet {
+        font-size: 14px !important;
+        line-height: 1.8 !important;
+      }
+      #contract-sheet h1 { font-size: 22px !important; margin-bottom: 2.5rem !important; text-align: center !important; }
+      #contract-sheet h3 { font-size: 15px !important; margin-top: 2rem !important; margin-bottom: 0.5rem !important; color: #000000 !important; }
+      #contract-sheet p { margin-bottom: 1.5rem !important; }
+
+      /* Clear out standard grid mechanics and split signature lines cleanly */
+      #contract-sheet .grid {
+        display: block !important;
+        margin-top: 5rem !important;
+        padding-top: 2rem !important;
+      }
+      #contract-sheet .grid > div {
+        display: inline-block !important;
+        width: 45% !important;
+        vertical-align: top !important;
+      }
+      #contract-sheet .grid > div:last-child {
+        float: right !important;
+      }
+      
       .no-print { display: none !important; }
     }
   </style>
