@@ -287,4 +287,66 @@
               </div>
               <p class="text-xs text-slate-400 leading-relaxed mb-6" data-en="The global industry standard layout for customer ledger matrices. Automate visual pipeline telemetry, pipeline tracking vectors, and inbound data capture pipelines." data-ja="企業データを集約する世界標準のCRM設計プラットフォーム。インバウンドリード獲得から商談データの一元管理まで網羅。">The global industry standard layout for customer ledger matrices.</p>
             </div>
-            <a href="#" target="_blank" class="block w-full text-
+            <a href="#" target="_blank" class="block w-full text-center bg-slate-900 group-hover:bg-brand-500 border border-slate-800 group-hover:border-brand-600 text-white text-xs font-bold py-3 rounded-xl transition shadow-sm" data-en="Deploy Architecture System &rarr;" data-ja="インフラシステムを導入 &rarr;">Deploy Architecture System &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function switchWorkspace(targetId) {
+      document.getElementById('view-invoice').classList.add('hidden');
+      document.getElementById('view-contract').classList.add('hidden');
+      document.getElementById('view-marketplace').classList.add('hidden');
+      
+      document.getElementById('nav-invoice').className = "text-slate-400 hover:text-white font-semibold text-xs px-3 sm:px-4 py-2 rounded-lg transition whitespace-nowrap";
+      document.getElementById('nav-contract').className = "text-slate-400 hover:text-white font-semibold text-xs px-3 sm:px-4 py-2 rounded-lg transition whitespace-nowrap";
+      document.getElementById('nav-marketplace').className = "text-slate-400 hover:text-white font-semibold text-xs px-3 sm:px-4 py-2 rounded-lg transition whitespace-nowrap";
+
+      if(targetId === 'invoice') {
+        document.getElementById('view-invoice').classList.remove('hidden');
+        document.getElementById('nav-invoice').className = "bg-brand-500 text-white font-semibold text-xs px-3 sm:px-4 py-2 rounded-lg transition shadow-md shadow-brand-500/10 whitespace-nowrap";
+      } else if(targetId === 'contract') {
+        document.getElementById('view-contract').classList.remove('hidden');
+        document.getElementById('nav-contract').className = "bg-brand-500 text-white font-semibold text-xs px-3 sm:px-4 py-2 rounded-lg transition shadow-md shadow-brand-500/10 whitespace-nowrap";
+      } else {
+        document.getElementById('view-marketplace').classList.remove('hidden');
+        document.getElementById('nav-marketplace').className = "bg-brand-500 text-white font-semibold text-xs px-3 sm:px-4 py-2 rounded-lg transition shadow-md shadow-brand-500/10 whitespace-nowrap";
+      }
+    }
+
+    function syncInvoiceData() {
+      const sender = document.getElementById('in-sender').value || '---';
+      const tax = document.getElementById('in-tax').value;
+      const desc = document.getElementById('in-desc').value || '---';
+      const curr = document.getElementById('in-curr').value;
+      const price = parseFloat(document.getElementById('in-price').value) || 0;
+
+      document.getElementById('out-sender').innerText = sender;
+      document.getElementById('out-tax').innerText = tax ? "Tax ID: " + tax : "Tax ID: Not Set";
+      document.getElementById('out-desc').innerText = desc;
+      
+      const combinedVal = curr + price.toLocaleString();
+      document.getElementById('out-price').innerText = combinedVal;
+      document.getElementById('out-total').innerText = combinedVal;
+    }
+
+    function syncContractData() {
+      const partyA = document.getElementById('in-party-a').value || '---';
+      const partyB = document.getElementById('in-party-b').value || '[Receiving Party Entity]';
+      const purpose = document.getElementById('in-purpose').value || '---';
+
+      document.getElementById('out-party-a').innerText = partyA;
+      document.getElementById('out-party-b').innerText = partyB;
+      document.getElementById('out-purpose').innerText = purpose;
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(syncInvoiceData, 200);
+      setTimeout(syncContractData, 200);
+    });
+  </script>
+</body>
+</html>
