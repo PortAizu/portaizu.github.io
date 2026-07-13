@@ -1,56 +1,77 @@
 let currentLang = 'en';
 
 function toggleLanguage() {
-  // Flip the active language state
   currentLang = currentLang === 'en' ? 'ja' : 'en';
   
-  // 1. Scan and dynamically translate all elements with data-en/data-ja attributes
+  // 1. Translate all generic static dashboard texts
   const elements = document.querySelectorAll('[data-en]');
   elements.forEach(el => {
     const text = el.getAttribute(`data-${currentLang}`);
-    if (text) {
-      el.innerText = text;
-    }
+    if (text) { el.innerText = text; }
   });
 
-  // 2. Synchronize Form and Dynamic Layout Placeholders (Contact Page)
-  const nameInput = document.querySelector('input[name="name"]');
-  const emailInput = document.querySelector('input[name="email"]');
-  const msgInput = document.querySelector('textarea[name="message"]');
-
-  if (nameInput && emailInput && msgInput) {
-    if (currentLang === 'ja') {
-      nameInput.placeholder = "例：山田 太郎";
-      emailInput.placeholder = "example@company.com";
-      msgInput.placeholder = "どのようなツールやシステムのカスタマイズをご希望ですか？詳細をご記入ください。";
-    } else {
-      nameInput.placeholder = "Enter your full name or company";
-      emailInput.placeholder = "example@company.com";
-      msgInput.placeholder = "Describe your specific tool customization requirements here...";
-    }
+  // 2. Safely capture all input fields
+  const inSender = document.getElementById('in-sender');
+  const inDesc = document.getElementById('in-desc');
+  const inPartyA = document.getElementById('in-party-a');
+  const inPurpose = document.getElementById('in-purpose');
+  
+  // 3. DYNAMIC VALUE LOCALIZATION (Swaps text if fields haven't been manually altered)
+  if (currentLang === 'ja') {
+    if (!inSender.value || inSender.value === "Alex Studio London Ltd") inSender.value = "株式会社アレックス・スタジオ・ジャパン";
+    if (!inDesc.value || inDesc.value === "Systems Infrastructure Architecture & Strategy Consultation") inDesc.value = "システムインフラ基本設計およびクラウド統合戦略コンサルティング";
+    if (!inPartyA.value || inPartyA.value === "Alex Studio London Ltd") inPartyA.value = "株式会社アレックス・スタジオ・ジャパン";
+    if (!inPurpose.value || inPurpose.value === "Evaluation of proprietary database systems and cloud layout engineering frameworks.") inPurpose.value = "独自データベースシステムおよびクラウドレイアウトエンジニアリング基盤の評価検証。";
+  } else {
+    if (inSender.value === "株式会社アレックス・スタジオ・ジャパン") inSender.value = "Alex Studio London Ltd";
+    if (inDesc.value === "システムインフラ基本設計およびクラウド統合戦略コンサルティング") inDesc.value = "Systems Infrastructure Architecture & Strategy Consultation";
+    if (inPartyA.value === "株式会社アレックス・スタジオ・ジャパン") inPartyA.value = "Alex Studio London Ltd";
+    if (inPurpose.value === "独自データベースシステムおよびクラウドレイアウトエンジニアリング基盤の評価検証。") inPurpose.value = "Evaluation of proprietary database systems and cloud layout engineering frameworks.";
   }
 
-  // 3. Dynamic Placeholder Updates for Workspace Panels (NDA & Invoice Input fields)
+  // 4. Update the input field custom formatting hint placeholders
   const clientInput = document.getElementById('in-party-b');
   if (clientInput) {
-    if (currentLang === 'ja') {
-      clientInput.placeholder = "企業名・取引先法人名を入力してください";
-    } else {
-      clientInput.placeholder = "Enter Corporate Client Full Entity Name";
-    }
+    clientInput.placeholder = currentLang === 'ja' ? "企業名・取引先法人名を入力してください" : "Enter Corporate Client Full Entity Name";
   }
 
   const taxInput = document.getElementById('in-tax');
   if (taxInput) {
-    if (currentLang === 'ja') {
-      taxInput.placeholder = "法人番号 / 適格請求書発行事業者登録番号 (例: T1234567890123)";
-    } else {
-      taxInput.placeholder = "Corporate Identification / Vat ID (e.g. GB1234567)";
-    }
+    taxInput.placeholder = currentLang === 'ja' ? "法人番号 / 適格請求書発行事業者登録番号 (例: T1234567890123)" : "Corporate Identification / Vat ID (e.g. GB1234567)";
   }
+
+  // 5. Force the document canvases to redraw immediately using the newly flipped default strings
+  syncInvoiceData();
+  syncContractData();
 }
 
-// Ensure proper localization settings apply immediately upon browser load
-document.addEventListener('DOMContentLoaded', () => {
-  // Add initialization logic here if you want to remember language state across page sessions
+function syncInvoiceData() {
+  const sender = document.getElementById('in-sender').value || '---';
+  const tax = document.getElementById('in-tax').value;
+  const desc = document.getElementById('in-desc').value || '---';
+  const curr = document.getElementById('in-curr').value;
+  const price = parseFloat(document.getElementById('in-price').value) || 0;
+
+  document.getElementById('out-sender').innerText = sender;
+  document.getElementById('out-tax').innerText = tax ? "Tax ID: " + tax : (currentLang === 'ja' ? "登録番号: 未設定" : "Tax ID: Not Set");
+  document.getElementById('out-desc').innerText = desc;
+  
+  const combinedVal = curr + price.toLocaleString();
+  document.getElementById('out-price').innerText = combinedVal;
+  document.getElementById('out-total').innerText = combinedVal;
+}
+
+function syncContractData() {
+  const partyA = document.getElementById('in-party-a').value || '---';
+  const partyB = document.getElementById('in-party-b').value || (currentLang === 'ja' ? '[受領当事者名称]' : '[Receiving Party Entity]');
+  const purpose = document.getElementById('in-purpose').value || '---';
+
+  document.getElementById('out-party-a').innerText = partyA;
+  document.getElementById('out-party-b').innerText = partyB;
+  document.getElementById('out-purpose').innerText = purpose;
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(syncInvoiceData, 200);
+  setTimeout(syncContractData, 200);
 });
