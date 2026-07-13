@@ -1,8 +1,16 @@
-let currentLang = 'en';
+// Read initial state from localStorage if it exists, default to 'en'
+let currentLang = localStorage.getItem('jokare_lang') || 'en';
 
 function toggleLanguage() {
   currentLang = currentLang === 'en' ? 'ja' : 'en';
-  
+  applyLanguage();
+}
+
+// Extracted core translation logic into a separate function for clean initialization
+function applyLanguage() {
+  // Save selection instantly to the client browser's memory
+  localStorage.setItem('jokare_lang', currentLang);
+
   // 1. Translate all generic static dashboard texts with data-en attributes
   const elements = document.querySelectorAll('[data-en]');
   elements.forEach(el => {
@@ -12,7 +20,7 @@ function toggleLanguage() {
 
   // 2. Synchronize Form and Dynamic Layout Placeholders (Contact Page)
   const nameInput = document.querySelector('input[name="name"]');
-  const emailInput = document.querySelector('input[name="_replyto"]'); // Updated to catch Formspree's tag
+  const emailInput = document.querySelector('input[name="_replyto"]');
   const msgInput = document.querySelector('textarea[name="message"]');
 
   if (nameInput && emailInput && msgInput) {
@@ -38,18 +46,18 @@ function toggleLanguage() {
   // 4. DYNAMIC VALUE LOCALIZATION (Only runs if the inputs exist on the workspace page)
   if (inSender && inDesc && inPartyA && inPurpose && inInvDate && inConDate) {
     if (currentLang === 'ja') {
-      if (!inSender.value || inSender.value === "Alex Studio London Ltd") inSender.value = "株式会社アレックス・スタジオ・ジャパン";
-      if (!inDesc.value || inDesc.value === "Systems Infrastructure Architecture & Strategy Consultation") inDesc.value = "システムインフラ基本設計およびクラウド統合戦略コンサルティング";
-      if (!inPartyA.value || inPartyA.value === "Alex Studio London Ltd") inPartyA.value = "株式会社アレックス・スタジオ・ジャパン";
-      if (!inPurpose.value || inPurpose.value === "Evaluation of proprietary database systems and cloud layout engineering frameworks.") inPurpose.value = "独自データベースシステムおよびクラウドレイアウトエンジニアリング基盤の評価検証。";
+      if (!inSender.value || inSender.value === "Alex Studio London Ltd" || inSender.value === "株式会社アレックス・スタジオ・ジャパン") inSender.value = "株式会社アレックス・スタジオ・ジャパン";
+      if (!inDesc.value || inDesc.value === "Systems Infrastructure Architecture & Strategy Consultation" || inDesc.value === "システムインフラ基本設計およびクラウド統合戦略コンサルティング") inDesc.value = "システムインフラ基本設計およびクラウド統合戦略コンサルティング";
+      if (!inPartyA.value || inPartyA.value === "Alex Studio London Ltd" || inPartyA.value === "株式会社アレックス・スタジオ・ジャパン") inPartyA.value = "株式会社アレックス・スタジオ・ジャパン";
+      if (!inPurpose.value || inPurpose.value === "Evaluation of proprietary database systems and cloud layout engineering frameworks." || inPurpose.value === "独自データベースシステムおよびクラウドレイアウトエンジニアリング基盤の評価検証。") inPurpose.value = "独自データベースシステムおよびクラウドレイアウトエンジニアリング基盤の評価検証。";
       
       if (inInvDate.value === "July 10, 2026") inInvDate.value = "2026年7月10日";
       if (inConDate.value === "July 10, 2026") inConDate.value = "2026年7月10日";
     } else {
-      if (inSender.value === "株式会社アレックス・スタジオ・ジャパン") inSender.value = "Alex Studio London Ltd";
-      if (inDesc.value === "システムインフラ基本設計およびクラウド統合戦略コンサルティング") inDesc.value = "Systems Infrastructure Architecture & Strategy Consultation";
-      if (inPartyA.value === "株式会社アレックス・スタジオ・ジャパン") inPartyA.value = "Alex Studio London Ltd";
-      if (inPurpose.value === "独自データベースシステムおよびクラウドレイアウトエンジニアリング基盤の評価検証。") inPurpose.value = "Evaluation of proprietary database systems and cloud layout engineering frameworks.";
+      if (!inSender.value || inSender.value === "株式会社アレックス・スタジオ・ジャパン" || inSender.value === "Alex Studio London Ltd") inSender.value = "Alex Studio London Ltd";
+      if (!inDesc.value || inDesc.value === "システムインフラ基本設計およびクラウド統合戦略コンサルティング" || inDesc.value === "Systems Infrastructure Architecture & Strategy Consultation") inDesc.value = "Systems Infrastructure Architecture & Strategy Consultation";
+      if (!inPartyA.value || inPartyA.value === "株式会社アレックス・スタジオ・ジャパン" || inPartyA.value === "Alex Studio London Ltd") inPartyA.value = "Alex Studio London Ltd";
+      if (!inPurpose.value || inPurpose.value === "独自データベースシステムおよびクラウドレイアウトエンジニアリング基盤の評価検証。" || inPurpose.value === "Evaluation of proprietary database systems and cloud layout engineering frameworks.") inPurpose.value = "Evaluation of proprietary database systems and cloud layout engineering frameworks.";
       
       if (inInvDate.value === "2026年7月10日") inInvDate.value = "July 10, 2026";
       if (inConDate.value === "2026年7月10日") inConDate.value = "July 10, 2026";
@@ -130,7 +138,11 @@ function syncContractData() {
   if (contractDateOut) contractDateOut.innerText = dateVal;
 }
 
+// Initialization initialization: Check saved state instantly on DOM load
 window.addEventListener('DOMContentLoaded', () => {
+  // Fire the initial language engine evaluation block based on stored preferences
+  applyLanguage();
+  
   setTimeout(syncInvoiceData, 200);
   setTimeout(syncContractData, 200);
 });
