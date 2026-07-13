@@ -49,7 +49,7 @@
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
     
-    /* DUAL MODALITY PRINT CONTROLLER - EXPANDED DOCUMENT EDITION */
+    /* THE CORPORATE PAPER LAYOUT ENGINE */
     @media print {
       body * { visibility: hidden; }
       
@@ -63,24 +63,50 @@
         top: 0; 
         width: 100% !important; 
         max-width: 100% !important;
-        min-h: max-content !important; /* Overrides screen constraints */
         box-shadow: none !important; 
         border: none !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        color: black !important; 
         background: white !important; 
+        color: #0f172a !important;
       }
 
-      /* Tailor the contract page typography to expand naturally on paper */
+      /* Tailor the contract layout specifically to fill out letter/A4 paper */
       #contract-sheet {
-        font-size: 13px !important; /* Increases readability size */
-        line-height: 1.8 !important; /* Spreads lines out cleanly */
+        padding: 2.5rem !important;
+        font-size: 14px !important;
+        line-height: 1.8 !important;
       }
       
-      #contract-sheet h1 { font-size: 18px !important; margin-bottom: 24px !important; }
-      #contract-sheet h3 { font-size: 14px !important; margin-top: 20px !important; }
-      #contract-sheet p { margin-bottom: 16px !important; }
+      #contract-sheet h1 { 
+        font-size: 22px !important; 
+        margin-bottom: 2.5rem !important; 
+        text-align: center !important;
+        letter-spacing: 0.05em !important;
+      }
+      
+      #contract-sheet h3 { 
+        font-size: 15px !important; 
+        margin-top: 2rem !important; 
+        margin-bottom: 0.5rem !important; 
+        color: #000000 !important;
+      }
+      
+      #contract-sheet p { 
+        margin-bottom: 1.5rem !important; 
+        color: #334155 !important;
+      }
+
+      /* Force the signature blocks to spread across the bottom elegantly */
+      #contract-sheet .grid {
+        display: flex !important;
+        justify-content: space-between !important;
+        gap: 4rem !important;
+        margin-top: 4rem !important;
+        padding-top: 2rem !important;
+      }
+      
+      #contract-sheet .grid > div {
+        flex: 1 !important;
+      }
       
       .no-print { display: none !important; }
     }
