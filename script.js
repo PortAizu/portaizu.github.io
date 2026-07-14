@@ -1,10 +1,17 @@
 // Read initial state configurations from localStorage
 let currentLang = localStorage.getItem('jokare_lang') || 'en';
-let previewTheme = localStorage.getItem('jokare_preview_theme') || 'light'; // Default to light sheets
+let previewTheme = localStorage.getItem('jokare_preview_theme') || 'light'; 
 
 function toggleLanguage() {
   currentLang = currentLang === 'en' ? 'ja' : 'en';
   applyLanguage();
+  
+  // Dynamic localized toast alert confirmation
+  if (currentLang === 'ja') {
+    showToast("Switched system language context to Japanese", "表示言語を日本語に切り替えました");
+  } else {
+    showToast("Switched system language context to English", "Language changed to English");
+  }
 }
 
 function applyLanguage() {
@@ -57,6 +64,9 @@ function togglePreviewTheme() {
   previewTheme = previewTheme === 'light' ? 'dark' : 'light';
   localStorage.setItem('jokare_preview_theme', previewTheme);
   applyPreviewTheme();
+
+  // Instant interactive feedback notification alert
+  showToast("Preview canvas contrast theme updated", "プレビューの配色表示レイアウトを更新しました");
 }
 
 function applyPreviewTheme() {
@@ -170,41 +180,24 @@ function syncContractData() {
 }
 
 // -------------------------------------------------------------------------
-// DOM REVEAL INITIALIZATION PIPELINE
-// -------------------------------------------------------------------------
-window.addEventListener('DOMContentLoaded', () => {
-  loadDraftsFromLocal();
-  applyLanguage();
-  applyPreviewTheme(); // Ensures visual theme selection holds on reload
-  
-  setTimeout(syncInvoiceData, 200);
-  setTimeout(syncContractData, 200);
-});
-
-// -------------------------------------------------------------------------
 // 🚀 LIGHTWEIGHT TOAST NOTIFICATION ENGINE
 // -------------------------------------------------------------------------
 function showToast(messageEn, messageJa) {
   const container = document.getElementById('toast-container');
   if (!container) return;
 
-  // Choose the text context matching the active user preference configuration
   const displayMessage = currentLang === 'ja' ? messageJa : messageEn;
 
-  // Create toast framework node element
   const toast = document.createElement('div');
   toast.className = "animate-toast-slide bg-slate-900/95 text-slate-100 text-xs font-semibold px-4 py-3 rounded-xl border border-slate-800/80 shadow-2xl backdrop-blur-md flex items-center gap-2 pointer-events-auto min-w-[240px]";
   
-  // Set content with a premium branding accent point
   toast.innerHTML = `
     <span class="text-brand-500 font-bold">●</span>
     <span>${displayMessage}</span>
   `;
 
-  // Append node container stack
   container.appendChild(toast);
 
-  // Smoothly fade out and remove element after 3 seconds
   setTimeout(() => {
     toast.style.transition = "opacity 0.4s ease, transform 0.4s ease";
     toast.style.opacity = "0";
@@ -212,3 +205,15 @@ function showToast(messageEn, messageJa) {
     setTimeout(() => toast.remove(), 400);
   }, 3000);
 }
+
+// -------------------------------------------------------------------------
+// DOM REVEAL INITIALIZATION PIPELINE
+// -------------------------------------------------------------------------
+window.addEventListener('DOMContentLoaded', () => {
+  loadDraftsFromLocal();
+  applyLanguage();
+  applyPreviewTheme(); 
+  
+  setTimeout(syncInvoiceData, 200);
+  setTimeout(syncContractData, 200);
+});
