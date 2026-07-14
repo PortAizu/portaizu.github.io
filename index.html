@@ -46,12 +46,15 @@
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
     
-    /* Dynamic Dark Preview Sheet Styling (Screen Only) */
+/* Dynamic Dark Preview Sheet Styling (Screen Only) */
     .preview-dark-sheet {
       background-color: #0f172a !important; /* Dark Slate background */
       color: #f1f5f9 !important; /* Light slate text */
       border-color: #334155 !important; /* Muted border */
     }
+    /* Overrides hardcoded dark text classes and forces them white in dark mode */
+    .preview-dark-sheet .text-slate-900,
+    .preview-dark-sheet .text-slate-700,
     .preview-dark-sheet h1, 
     .preview-dark-sheet h3, 
     .preview-dark-sheet strong,
