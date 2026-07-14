@@ -7,10 +7,12 @@
   <link rel="canonical" href="https://jokare.com/">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
+  <!-- Favicon Asset Engine -->
   <link rel="shortcut icon" href="/images/favicon.png">
   <link rel="icon" type="image/png" href="/images/favicon.png">
   <link rel="apple-touch-icon" href="/images/favicon.png">
 
+  <!-- Structured Data for Google Indexing -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -24,6 +26,7 @@
 
   <meta name="theme-color" content="#090d16">
   
+  <!-- Injected Tailwind CSS for bleeding-edge SaaS UI styling -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -46,13 +49,12 @@
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
     
-/* Dynamic Dark Preview Sheet Styling (Screen Only) */
+    /* Dynamic Dark Preview Sheet Styling (Screen Only) */
     .preview-dark-sheet {
       background-color: #0f172a !important; /* Dark Slate background */
       color: #f1f5f9 !important; /* Light slate text */
       border-color: #334155 !important; /* Muted border */
     }
-    /* Overrides hardcoded dark text classes and forces them white in dark mode */
     .preview-dark-sheet .text-slate-900,
     .preview-dark-sheet .text-slate-700,
     .preview-dark-sheet h1, 
@@ -139,7 +141,7 @@
       .no-print { display: none !important; }
     }
 
-/* Toast Notification Slide-In Mechanics */
+    /* Toast Notification Slide-In Mechanics */
     @keyframes slideIn {
       from { transform: translateX(100%); opacity: 0; }
       to { transform: translateX(0); opacity: 1; }
@@ -147,12 +149,12 @@
     .animate-toast-slide {
       animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-    
   </style>
   <script src="/script.js" defer></script>
 </head>
-<body class="bg-[#090d16] text-slate-100 min-h-screen md:h-screen md:overflow-hidden flex flex-col">
+<body class="bg-[#090d16] text-slate-100 min-h-screen md:h-screen flex flex-col md:overflow-hidden">
 
+  <!-- Premium Application Top Bar Navigation -->
   <header class="bg-[#040810]/80 backdrop-blur-md border-b border-slate-800/60 px-4 md:px-6 py-4 flex flex-col sm:flex-row gap-4 justify-between items-center no-print flex-shrink-0">
     <div class="flex items-center gap-3">
       <div class="p-1 bg-brand-500/10 rounded-xl border border-brand-500/20">
@@ -164,22 +166,24 @@
       </div>
     </div>
     
-<!-- REPLACE YOUR EXISTING <nav> BLOCK WITH THIS RESPONSIBLE ENGINE -->
-<nav class="flex items-center gap-1.5 bg-slate-900/60 p-1 rounded-xl border border-slate-800/80 w-full sm:w-auto overflow-x-auto justify-start sm:justify-center px-2 snap-x scrollbar-none">
-  <button onclick="switchWorkspace('invoice')" id="nav-invoice" class="bg-brand-500 text-white font-semibold text-xs px-3.5 py-2 rounded-lg transition shadow-md shadow-brand-500/10 whitespace-nowrap snap-ml-2" data-en="Invoice Engine" data-ja="請求書作成">Invoice Engine</button>
-  <button onclick="switchWorkspace('contract')" id="nav-contract" class="text-slate-400 hover:text-white font-semibold text-xs px-3.5 py-2 rounded-lg transition whitespace-nowrap" data-en="NDA Generator" data-ja="契約書作成">NDA Generator</button>
-  <button onclick="switchWorkspace('marketplace')" id="nav-marketplace" class="text-slate-400 hover:text-white font-semibold text-xs px-3.5 py-2 rounded-lg transition whitespace-nowrap" data-en="B2B Marketplace" data-ja="企業向けストア">B2B Marketplace</button>
-  <a href="/contact/" class="text-slate-400 hover:text-white font-semibold text-xs px-3.5 py-2 rounded-lg transition whitespace-nowrap pr-2" data-en="Custom Build" data-ja="特注開発窓口">Custom Build</a>
-</nav>
+    <nav class="flex items-center gap-1.5 bg-slate-900/60 p-1 rounded-xl border border-slate-800/80 w-full sm:w-auto overflow-x-auto justify-start sm:justify-center px-2 snap-x scrollbar-none">
+      <button onclick="switchWorkspace('invoice')" id="nav-invoice" class="bg-brand-500 text-white font-semibold text-xs px-3.5 py-2 rounded-lg transition shadow-md shadow-brand-500/10 whitespace-nowrap snap-ml-2" data-en="Invoice Engine" data-ja="請求書作成">Invoice Engine</button>
+      <button onclick="switchWorkspace('contract')" id="nav-contract" class="text-slate-400 hover:text-white font-semibold text-xs px-3.5 py-2 rounded-lg transition whitespace-nowrap" data-en="NDA Generator" data-ja="契約書作成">NDA Generator</button>
+      <button onclick="switchWorkspace('marketplace')" id="nav-marketplace" class="text-slate-400 hover:text-white font-semibold text-xs px-3.5 py-2 rounded-lg transition whitespace-nowrap" data-en="B2B Marketplace" data-ja="企業向けストア">B2B Marketplace</button>
+      <a href="/contact/" class="text-slate-400 hover:text-white font-semibold text-xs px-3.5 py-2 rounded-lg transition whitespace-nowrap pr-2" data-en="Custom Build" data-ja="特注開発窓口">Custom Build</a>
+    </nav>
 
     <button class="bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-bold text-xs px-3 py-2 rounded-xl shadow-sm transition w-full sm:w-auto" onclick="toggleLanguage()">
       <span data-en="EN / 日本語" data-ja="日本語 / EN">EN / 日本語</span>
     </button>
   </header>
 
-  <div class="flex-1 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden">
+  <!-- Main Canvas Dynamic Screen -->
+  <div class="flex-1 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden min-h-0">
     
-    <div id="view-invoice" class="w-full flex flex-col md:flex-row h-full">
+    <!-- SUB-MODULE 1: SECURE LOCAL ACCOUNTING MODALITY -->
+    <div id="view-invoice" class="w-full flex flex-col md:flex-row min-h-0 md:h-full">
+      <!-- Parameters Panel -->
       <section class="w-full md:w-1/2 p-4 sm:p-8 md:overflow-y-auto border-b md:border-b-0 md:border-r border-slate-800/60 no-print space-y-6 bg-[#050911]">
         <div>
           <h2 class="text-xl font-extrabold text-white tracking-tight" data-en="Secure Billing Framework" data-ja="安全請求書ジェネレーター">Secure Billing Framework</h2>
@@ -214,15 +218,17 @@
         </button>
       </section>
 
-      <section class="w-full md:w-1/2 p-4 sm:p-8 bg-[#04070d] flex flex-col items-center overflow-y-auto">
-        <div class="w-full max-w-md flex justify-end mb-2 no-print">
+      <!-- Realtime Canvas Sheet Review Panel -->
+      <section class="w-full md:w-1/2 p-4 sm:p-8 bg-[#04070d] flex flex-col items-center md:overflow-y-auto flex-shrink-0 md:flex-shrink">
+        <!-- Interactive Preview Controls Bar -->
+        <div class="w-full max-w-md flex justify-end mb-4 no-print">
           <button onclick="togglePreviewTheme()" class="bg-slate-900/60 hover:bg-slate-800/80 border border-slate-800/60 text-slate-400 hover:text-white px-3 py-1.5 rounded-lg text-[10px] font-bold flex items-center gap-1.5 transition">
             <span>🎨</span>
             <span data-en="Toggle Preview Dark Mode" data-ja="ダークプレビュー切替">Toggle Preview Dark Mode</span>
           </button>
         </div>
 
-        <div id="invoice-sheet" class="w-full max-w-md bg-white text-slate-900 p-6 sm:p-8 shadow-2xl rounded-xl border border-slate-200 flex flex-col justify-between min-h-[480px] sm:min-h-[540px] mb-4 transition-all duration-250">
+        <div id="invoice-sheet" class="w-full max-w-md bg-white text-slate-900 p-6 sm:p-8 shadow-2xl rounded-xl border border-slate-200 flex flex-col justify-between min-h-[480px] sm:min-h-[540px] mb-8 md:mb-4 transition-all duration-250">
           <div>
             <div class="flex justify-between items-start border-b border-slate-200 pb-5 mb-5">
               <div>
@@ -257,7 +263,9 @@
       </section>
     </div>
 
-    <div id="view-contract" class="w-full flex flex-col md:flex-row h-full hidden">
+    <!-- SUB-MODULE 2: SECURE LOCAL CONTRACT MODALITY -->
+    <div id="view-contract" class="w-full flex flex-col md:flex-row min-h-0 md:h-full hidden">
+      <!-- Parameters Panel -->
       <section class="w-full md:w-1/2 p-4 sm:p-8 md:overflow-y-auto border-b md:border-b-0 md:border-r border-slate-800/60 no-print space-y-6 bg-[#050911]">
         <div>
           <h2 class="text-xl font-extrabold text-white tracking-tight" data-en="Secure NDA Protocol Engine" data-ja="秘密保持契約書(NDA)ジェネレーター">Secure NDA Protocol Engine</h2>
@@ -291,15 +299,17 @@
         </button>
       </section>
 
-      <section class="w-full md:w-1/2 p-4 sm:p-8 bg-[#04070d] flex flex-col items-center overflow-y-auto">
-        <div class="w-full max-w-md flex justify-end mb-2 no-print">
+      <!-- Realtime Document Paper View Panel -->
+      <section class="w-full md:w-1/2 p-4 sm:p-8 bg-[#04070d] flex flex-col items-center md:overflow-y-auto flex-shrink-0 md:flex-shrink">
+        <!-- Interactive Preview Controls Bar -->
+        <div class="w-full max-w-md flex justify-end mb-4 no-print">
           <button onclick="togglePreviewTheme()" class="bg-slate-900/60 hover:bg-slate-800/80 border border-slate-800/60 text-slate-400 hover:text-white px-3 py-1.5 rounded-lg text-[10px] font-bold flex items-center gap-1.5 transition">
             <span>🎨</span>
             <span data-en="Toggle Preview Dark Mode" data-ja="ダークプレビュー切替">Toggle Preview Dark Mode</span>
           </button>
         </div>
 
-        <div id="contract-sheet" class="w-full max-w-md bg-white text-slate-900 p-6 sm:p-8 shadow-2xl rounded-xl border border-slate-200 flex flex-col justify-between min-h-[480px] sm:min-h-[540px] mb-4 text-[10px] leading-relaxed transition-all duration-250">
+        <div id="contract-sheet" class="w-full max-w-md bg-white text-slate-900 p-6 sm:p-8 shadow-2xl rounded-xl border border-slate-200 flex flex-col justify-between min-h-[480px] sm:min-h-[540px] mb-8 md:mb-4 text-[10px] leading-relaxed transition-all duration-250">
           <div>
             <h1 class="text-center text-sm font-black tracking-wider border-b border-slate-300 pb-3 mb-4 text-slate-900 uppercase" data-en="Mutual Non-Disclosure Agreement" data-ja="秘密保持契約書">Mutual Non-Disclosure Agreement</h1>
             
@@ -335,6 +345,7 @@
       </section>
     </div>
 
+    <!-- SUB-MODULE 3: ENTERPRISE SOFTWARE ACQUISITION PIPELINE -->
     <div id="view-marketplace" class="w-full h-full p-4 sm:p-10 overflow-y-auto bg-[#050911] hidden">
       <div class="max-w-4xl mx-auto">
         <h2 class="text-2xl font-black text-white tracking-tight" data-en="Verified Enterprise Architecture Matrix" data-ja="厳選B2Bエンタープライズ・クラウド索引">Verified Enterprise Architecture Matrix</h2>
@@ -391,7 +402,7 @@
     }
   </script>
 
-<!-- DYNAMIC LIVE TOAST SYSTEM CORE NOTIFICATION STACK -->
+  <!-- DYNAMIC LIVE TOAST SYSTEM CORE NOTIFICATION STACK -->
   <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none no-print"></div>
 
 </body>
