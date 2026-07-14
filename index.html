@@ -2,24 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-<title>Jokare Hub | Premium Developer & Agency Infrastructure Utilities</title>
-  <meta name="description" content="Secure browser-based invoice engines, local workflow planners, and curated corporate application frameworks for enterprise teams.">
+  <title>Jokare Hub | Premium Developer & Agency Infrastructure Utilities</title>
+  <meta name="description" content="Secure browser-based invoice engines, local workflow planners, and curated corporate application frameworks.">
   <link rel="canonical" href="https://jokare.com/">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-  <meta name="robots" content="index, follow">
-  <meta name="keywords" content="browser invoice generator, secure offline NDA, developer utilities, B2B architecture, enterprise CRM nodes, local client cache">
-
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://jokare.com/">
-  <meta property="og:title" content="Jokare Hub | Premium Developer Infrastructure Utilities">
-  <meta property="og:description" content="Secure browser-based invoice engines, local workflow planners, and curated corporate application frameworks completely offline.">
-  <meta property="og:image" content="https://jokare.com/images/favicon.png">
-
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:site" content="@JokareHub"> <meta name="twitter:title" content="Jokare Hub | Premium Developer Utilities">
-  <meta name="twitter:description" content="Secure browser-based invoice engines, local workflow planners, and curated corporate application frameworks.">
-  <meta name="twitter:image" content="https://jokare.com/images/favicon.png">
 
   <link rel="shortcut icon" href="/images/favicon.png">
   <link rel="icon" type="image/png" href="/images/favicon.png">
@@ -28,18 +14,11 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Jokare Workspace",
-    "operatingSystem": "All",
-    "applicationCategory": "BusinessApplication",
+    "@type": "Organization",
+    "name": "Jokare",
     "url": "https://jokare.com",
     "logo": "https://jokare.com/images/favicon.png",
-    "description": "Premium browser-based business utilities, secure invoice engines, and curated cloud infrastructure software for enterprise teams.",
-    "offers": {
-      "@type": "Offer",
-      "price": "0.00",
-      "priceCurrency": "USD"
-    }
+    "description": "Premium browser-based business utilities, secure invoice engines, and curated cloud infrastructure software for enterprise teams."
   }
   </script>
 
@@ -63,13 +42,36 @@
     }
   </script>
 
-<style>
+  <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
     
+    /* Dynamic Dark Preview Sheet Styling (Screen Only) */
+    .preview-dark-sheet {
+      background-color: #0f172a !important; /* Dark Slate background */
+      color: #f1f5f9 !important; /* Light slate text */
+      border-color: #334155 !important; /* Muted border */
+    }
+    .preview-dark-sheet h1, 
+    .preview-dark-sheet h3, 
+    .preview-dark-sheet strong,
+    .preview-dark-sheet #out-sender,
+    .preview-dark-sheet #out-price,
+    .preview-dark-sheet #out-total {
+      color: #ffffff !important;
+    }
+    .preview-dark-sheet td,
+    .preview-dark-sheet p {
+      color: #cbd5e1 !important;
+    }
+    .preview-dark-sheet .border-b,
+    .preview-dark-sheet .border-t,
+    .preview-dark-sheet .border-t-2 {
+      border-color: #334155 !important;
+    }
+    
     /* THE BULLETPROOF PRINT ENGINE - SINGLE PAGE EDITION */
     @media print {
-      /* 👇 ADD THIS NEW ADDITION HERE 👇 */
       @page {
         margin: 0; /* Clears browser headers, footers, URLs, and dates entirely */
       }
@@ -92,6 +94,16 @@
         background: white !important; 
         color: #0f172a !important;
         padding: 2.5rem !important; /* Safely handles padding since page margin is 0 */
+      }
+
+      /* Force standard crisp black-on-white print properties even if dark preview is active */
+      #invoice-sheet *, #contract-sheet * {
+        color: #0f172a !important;
+        background-color: transparent !important;
+        border-color: #e2e8f0 !important;
+      }
+      #contract-sheet h1, #contract-sheet h3, #contract-sheet strong, #invoice-sheet h1 {
+        color: #000000 !important;
       }
 
       #invoice-sheet {
@@ -124,7 +136,6 @@
       .no-print { display: none !important; }
     }
   </style>
-  
   <script src="/script.js" defer></script>
 </head>
 <body class="bg-[#090d16] text-slate-100 min-h-screen md:h-screen md:overflow-hidden flex flex-col">
@@ -189,8 +200,15 @@
         </button>
       </section>
 
-      <section class="w-full md:w-1/2 p-4 sm:p-8 bg-[#04070d] flex justify-center items-start overflow-y-auto">
-        <div id="invoice-sheet" class="w-full max-w-md bg-white text-slate-900 p-6 sm:p-8 shadow-2xl rounded-xl border border-slate-200 flex flex-col justify-between min-h-[480px] sm:min-h-[540px] my-4">
+      <section class="w-full md:w-1/2 p-4 sm:p-8 bg-[#04070d] flex flex-col items-center overflow-y-auto">
+        <div class="w-full max-w-md flex justify-end mb-2 no-print">
+          <button onclick="togglePreviewTheme()" class="bg-slate-900/60 hover:bg-slate-800/80 border border-slate-800/60 text-slate-400 hover:text-white px-3 py-1.5 rounded-lg text-[10px] font-bold flex items-center gap-1.5 transition">
+            <span>🎨</span>
+            <span data-en="Toggle Preview Dark Mode" data-ja="ダークプレビュー切替">Toggle Preview Dark Mode</span>
+          </button>
+        </div>
+
+        <div id="invoice-sheet" class="w-full max-w-md bg-white text-slate-900 p-6 sm:p-8 shadow-2xl rounded-xl border border-slate-200 flex flex-col justify-between min-h-[480px] sm:min-h-[540px] mb-4 transition-all duration-250">
           <div>
             <div class="flex justify-between items-start border-b border-slate-200 pb-5 mb-5">
               <div>
@@ -259,8 +277,15 @@
         </button>
       </section>
 
-      <section class="w-full md:w-1/2 p-4 sm:p-8 bg-[#04070d] flex justify-center items-start overflow-y-auto">
-        <div id="contract-sheet" class="w-full max-w-md bg-white text-slate-900 p-6 sm:p-8 shadow-2xl rounded-xl border border-slate-200 flex flex-col justify-between min-h-[480px] sm:min-h-[540px] my-4 text-[10px] leading-relaxed">
+      <section class="w-full md:w-1/2 p-4 sm:p-8 bg-[#04070d] flex flex-col items-center overflow-y-auto">
+        <div class="w-full max-w-md flex justify-end mb-2 no-print">
+          <button onclick="togglePreviewTheme()" class="bg-slate-900/60 hover:bg-slate-800/80 border border-slate-800/60 text-slate-400 hover:text-white px-3 py-1.5 rounded-lg text-[10px] font-bold flex items-center gap-1.5 transition">
+            <span>🎨</span>
+            <span data-en="Toggle Preview Dark Mode" data-ja="ダークプレビュー切替">Toggle Preview Dark Mode</span>
+          </button>
+        </div>
+
+        <div id="contract-sheet" class="w-full max-w-md bg-white text-slate-900 p-6 sm:p-8 shadow-2xl rounded-xl border border-slate-200 flex flex-col justify-between min-h-[480px] sm:min-h-[540px] mb-4 text-[10px] leading-relaxed transition-all duration-250">
           <div>
             <h1 class="text-center text-sm font-black tracking-wider border-b border-slate-300 pb-3 mb-4 text-slate-900 uppercase" data-en="Mutual Non-Disclosure Agreement" data-ja="秘密保持契約書">Mutual Non-Disclosure Agreement</h1>
             
@@ -299,7 +324,7 @@
     <div id="view-marketplace" class="w-full h-full p-4 sm:p-10 overflow-y-auto bg-[#050911] hidden">
       <div class="max-w-4xl mx-auto">
         <h2 class="text-2xl font-black text-white tracking-tight" data-en="Verified Enterprise Architecture Matrix" data-ja="厳選B2Bエンタープライズ・クラウド索引">Verified Enterprise Architecture Matrix</h2>
-        <p class="text-sm text-slate-400 mt-1 mb-8" data-en="Deploy high-ticket client systems, enterprise CRM nodes, and corporate operation pipelines." data-ja="数千人規模の運用に対応する最高峰のプロジェクト基盤、営業データ管理、業務自動化ツール群。">Deploy high-ticket client systems.</p>
+        <p class="text-sm text-slate-400 mt-1 mb-8" data-en="Deploy high-ticket client systems, enterprise CRM nodes, and corporate operation pipelines." data-ja="数千人規模の運用に対応する最高峰 of プロジェクト基盤、営業データ管理、業務自動化ツール群。">Deploy high-ticket client systems.</p>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div class="p-6 border border-slate-800/80 rounded-2xl bg-slate-900/20 hover:bg-slate-900/40 flex flex-col justify-between transition group hover:border-brand-500/30">
@@ -330,7 +355,6 @@
   </div>
 
   <script>
-    // Workspace Switching Logic remains inline to insulate the layout pipeline
     function switchWorkspace(targetId) {
       document.getElementById('view-invoice').classList.add('hidden');
       document.getElementById('view-contract').classList.add('hidden');
