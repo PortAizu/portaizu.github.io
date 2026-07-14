@@ -151,12 +151,13 @@
       </div>
     </div>
     
-    <nav class="flex items-center gap-1 bg-slate-900/60 p-1 rounded-xl border border-slate-800/80 w-full sm:w-auto overflow-x-auto justify-center">
-      <button onclick="switchWorkspace('invoice')" id="nav-invoice" class="bg-brand-500 text-white font-semibold text-xs px-3 sm:px-4 py-2 rounded-lg transition shadow-md shadow-brand-500/10 whitespace-nowrap" data-en="Invoice Engine" data-ja="請求書作成">Invoice Engine</button>
-      <button onclick="switchWorkspace('contract')" id="nav-contract" class="text-slate-400 hover:text-white font-semibold text-xs px-3 sm:px-4 py-2 rounded-lg transition whitespace-nowrap" data-en="NDA Generator" data-ja="契約書作成">NDA Generator</button>
-      <button onclick="switchWorkspace('marketplace')" id="nav-marketplace" class="text-slate-400 hover:text-white font-semibold text-xs px-3 sm:px-4 py-2 rounded-lg transition whitespace-nowrap" data-en="B2B Marketplace" data-ja="企業向けストア">B2B Marketplace</button>
-      <a href="/contact/" class="text-slate-400 hover:text-white font-semibold text-xs px-3 sm:px-4 py-2 rounded-lg transition whitespace-nowrap" data-en="Custom Build" data-ja="特注開発窓口">Custom Build</a>
-    </nav>
+<!-- REPLACE YOUR EXISTING <nav> BLOCK WITH THIS RESPONSIBLE ENGINE -->
+<nav class="flex items-center gap-1.5 bg-slate-900/60 p-1 rounded-xl border border-slate-800/80 w-full sm:w-auto overflow-x-auto justify-start sm:justify-center px-2 snap-x scrollbar-none">
+  <button onclick="switchWorkspace('invoice')" id="nav-invoice" class="bg-brand-500 text-white font-semibold text-xs px-3.5 py-2 rounded-lg transition shadow-md shadow-brand-500/10 whitespace-nowrap snap-ml-2" data-en="Invoice Engine" data-ja="請求書作成">Invoice Engine</button>
+  <button onclick="switchWorkspace('contract')" id="nav-contract" class="text-slate-400 hover:text-white font-semibold text-xs px-3.5 py-2 rounded-lg transition whitespace-nowrap" data-en="NDA Generator" data-ja="契約書作成">NDA Generator</button>
+  <button onclick="switchWorkspace('marketplace')" id="nav-marketplace" class="text-slate-400 hover:text-white font-semibold text-xs px-3.5 py-2 rounded-lg transition whitespace-nowrap" data-en="B2B Marketplace" data-ja="企業向けストア">B2B Marketplace</button>
+  <a href="/contact/" class="text-slate-400 hover:text-white font-semibold text-xs px-3.5 py-2 rounded-lg transition whitespace-nowrap pr-2" data-en="Custom Build" data-ja="特注開発窓口">Custom Build</a>
+</nav>
 
     <button class="bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-bold text-xs px-3 py-2 rounded-xl shadow-sm transition w-full sm:w-auto" onclick="toggleLanguage()">
       <span data-en="EN / 日本語" data-ja="日本語 / EN">EN / 日本語</span>
