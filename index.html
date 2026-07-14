@@ -63,12 +63,17 @@
     }
   </script>
 
-  <style>
+<style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
     
     /* THE BULLETPROOF PRINT ENGINE - SINGLE PAGE EDITION */
     @media print {
+      /* 👇 ADD THIS NEW ADDITION HERE 👇 */
+      @page {
+        margin: 0; /* Clears browser headers, footers, URLs, and dates entirely */
+      }
+      
       body * { visibility: hidden; }
       
       #invoice-sheet, #invoice-sheet *, #contract-sheet, #contract-sheet * { 
@@ -86,6 +91,7 @@
         margin: 0 !important;
         background: white !important; 
         color: #0f172a !important;
+        padding: 2.5rem !important; /* Safely handles padding since page margin is 0 */
       }
 
       #invoice-sheet {
@@ -118,6 +124,7 @@
       .no-print { display: none !important; }
     }
   </style>
+  
   <script src="/script.js" defer></script>
 </head>
 <body class="bg-[#090d16] text-slate-100 min-h-screen md:h-screen md:overflow-hidden flex flex-col">
