@@ -1,5 +1,6 @@
-// Read initial state from localStorage if it exists, default to 'en'
+// Read initial state configurations from localStorage
 let currentLang = localStorage.getItem('jokare_lang') || 'en';
+let previewTheme = localStorage.getItem('jokare_preview_theme') || 'light'; // Default to light sheets
 
 function toggleLanguage() {
   currentLang = currentLang === 'en' ? 'ja' : 'en';
@@ -9,14 +10,14 @@ function toggleLanguage() {
 function applyLanguage() {
   localStorage.setItem('jokare_lang', currentLang);
 
-  // 1. Translate all generic static dashboard texts
+  // 1. Translate all generic static dashboard texts with data-en attributes
   const elements = document.querySelectorAll('[data-en]');
   elements.forEach(el => {
     const text = el.getAttribute(`data-${currentLang}`);
     if (text) { el.innerText = text; }
   });
 
-  // 2. Synchronize Form and Placeholders (Contact Page)
+  // 2. Synchronize Form and Dynamic Layout Placeholders (Contact Page)
   const nameInput = document.querySelector('input[name="name"]');
   const emailInput = document.querySelector('input[name="_replyto"]');
   const msgInput = document.querySelector('textarea[name="message"]');
@@ -44,13 +45,35 @@ function applyLanguage() {
     taxInput.placeholder = currentLang === 'ja' ? "法人番号 / 適格請求書発行事業者登録番号 (例: T1234567890123)" : "Corporate Identification / Vat ID (e.g. GB1234567)";
   }
 
-  // 4. Update the actual invoice/contract data to match the language update
+  // 4. Trigger structural sync values
   syncInvoiceData();
   syncContractData();
 }
 
 // -------------------------------------------------------------------------
-// ⚡ LOCAL STORAGE DRAFT ENGINE (SAVES DATA TO USER'S MACHINE)
+// 🎨 CONTRAST PREVIEW TOGGLE ENGINE
+// -------------------------------------------------------------------------
+function togglePreviewTheme() {
+  previewTheme = previewTheme === 'light' ? 'dark' : 'light';
+  localStorage.setItem('jokare_preview_theme', previewTheme);
+  applyPreviewTheme();
+}
+
+function applyPreviewTheme() {
+  const invoiceSheet = document.getElementById('invoice-sheet');
+  const contractSheet = document.getElementById('contract-sheet');
+  
+  if (previewTheme === 'dark') {
+    if (invoiceSheet) invoiceSheet.classList.add('preview-dark-sheet');
+    if (contractSheet) contractSheet.classList.add('preview-dark-sheet');
+  } else {
+    if (invoiceSheet) invoiceSheet.classList.remove('preview-dark-sheet');
+    if (contractSheet) contractSheet.classList.remove('preview-dark-sheet');
+  }
+}
+
+// -------------------------------------------------------------------------
+// ⚡ LOCAL STORAGE DRAFT ENGINE
 // -------------------------------------------------------------------------
 function saveDraftsToLocal() {
   const fields = [
@@ -82,7 +105,7 @@ function loadDraftsFromLocal() {
 }
 
 // -------------------------------------------------------------------------
-// SYNCHRONIZATION RUNNERS (CALLED ON KEYPRESS/INPUT)
+// SYNCHRONIZATION RUNNERS
 // -------------------------------------------------------------------------
 function syncInvoiceData() {
   const inSender = document.getElementById('in-sender');
@@ -117,7 +140,6 @@ function syncInvoiceData() {
   if (outPrice) outPrice.innerText = combinedVal;
   if (outTotal) outTotal.innerText = combinedVal;
 
-  // Auto-save values to computer hard drive as user types
   saveDraftsToLocal();
 }
 
@@ -144,7 +166,6 @@ function syncContractData() {
   if (outPurpose) outPurpose.innerText = purpose;
   if (contractDateOut) contractDateOut.innerText = dateVal;
 
-  // Auto-save values to computer hard drive as user types
   saveDraftsToLocal();
 }
 
@@ -152,13 +173,10 @@ function syncContractData() {
 // DOM REVEAL INITIALIZATION PIPELINE
 // -------------------------------------------------------------------------
 window.addEventListener('DOMContentLoaded', () => {
-  // 1. Load any previously saved drafts from client's hard drive first
   loadDraftsFromLocal();
-  
-  // 2. Set the global translated views based on language settings
   applyLanguage();
+  applyPreviewTheme(); // Ensures visual theme selection holds on reload
   
-  // 3. Run structural alignments
   setTimeout(syncInvoiceData, 200);
   setTimeout(syncContractData, 200);
 });
