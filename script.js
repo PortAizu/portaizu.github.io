@@ -6,19 +6,17 @@ function toggleLanguage() {
   applyLanguage();
 }
 
-// Extracted core translation logic into a separate function for clean initialization
 function applyLanguage() {
-  // Save selection instantly to the client browser's memory
   localStorage.setItem('jokare_lang', currentLang);
 
-  // 1. Translate all generic static dashboard texts with data-en attributes
+  // 1. Translate all generic static dashboard texts
   const elements = document.querySelectorAll('[data-en]');
   elements.forEach(el => {
     const text = el.getAttribute(`data-${currentLang}`);
     if (text) { el.innerText = text; }
   });
 
-  // 2. Synchronize Form and Dynamic Layout Placeholders (Contact Page)
+  // 2. Synchronize Form and Placeholders (Contact Page)
   const nameInput = document.querySelector('input[name="name"]');
   const emailInput = document.querySelector('input[name="_replyto"]');
   const msgInput = document.querySelector('textarea[name="message"]');
@@ -35,36 +33,7 @@ function applyLanguage() {
     }
   }
 
-  // 3. Safely capture elements (with null checking guards for main workspace)
-  const inSender = document.getElementById('in-sender');
-  const inDesc = document.getElementById('in-desc');
-  const inPartyA = document.getElementById('in-party-a');
-  const inPurpose = document.getElementById('in-purpose');
-  const inInvDate = document.getElementById('in-invoice-date');
-  const inConDate = document.getElementById('in-contract-date');
-  
-  // 4. DYNAMIC VALUE LOCALIZATION (Only runs if the inputs exist on the workspace page)
-  if (inSender && inDesc && inPartyA && inPurpose && inInvDate && inConDate) {
-    if (currentLang === 'ja') {
-      if (!inSender.value || inSender.value === "Alex Studio London Ltd" || inSender.value === "株式会社アレックス・スタジオ・ジャパン") inSender.value = "株式会社アレックス・スタジオ・ジャパン";
-      if (!inDesc.value || inDesc.value === "Systems Infrastructure Architecture & Strategy Consultation" || inDesc.value === "システムインフラ基本設計およびクラウド統合戦略コンサルティング") inDesc.value = "システムインフラ基本設計およびクラウド統合戦略コンサルティング";
-      if (!inPartyA.value || inPartyA.value === "Alex Studio London Ltd" || inPartyA.value === "株式会社アレックス・スタジオ・ジャパン") inPartyA.value = "株式会社アレックス・スタジオ・ジャパン";
-      if (!inPurpose.value || inPurpose.value === "Evaluation of proprietary database systems and cloud layout engineering frameworks." || inPurpose.value === "独自データベースシステムおよびクラウドレイアウトエンジニアリング基盤の評価検証。") inPurpose.value = "独自データベースシステムおよびクラウドレイアウトエンジニアリング基盤の評価検証。";
-      
-      if (inInvDate.value === "July 10, 2026") inInvDate.value = "2026年7月10日";
-      if (inConDate.value === "July 10, 2026") inConDate.value = "2026年7月10日";
-    } else {
-      if (!inSender.value || inSender.value === "株式会社アレックス・スタジオ・ジャパン" || inSender.value === "Alex Studio London Ltd") inSender.value = "Alex Studio London Ltd";
-      if (!inDesc.value || inDesc.value === "システムインフラ基本設計およびクラウド統合戦略コンサルティング" || inDesc.value === "Systems Infrastructure Architecture & Strategy Consultation") inDesc.value = "Systems Infrastructure Architecture & Strategy Consultation";
-      if (!inPartyA.value || inPartyA.value === "株式会社アレックス・スタジオ・ジャパン" || inPartyA.value === "Alex Studio London Ltd") inPartyA.value = "Alex Studio London Ltd";
-      if (!inPurpose.value || inPurpose.value === "独自データベースシステムおよびクラウドレイアウトエンジニアリング基盤の評価検証。" || inPurpose.value === "Evaluation of proprietary database systems and cloud layout engineering frameworks.") inPurpose.value = "Evaluation of proprietary database systems and cloud layout engineering frameworks.";
-      
-      if (inInvDate.value === "2026年7月10日") inInvDate.value = "July 10, 2026";
-      if (inConDate.value === "2026年7月10日") inConDate.value = "July 10, 2026";
-    }
-  }
-
-  // 5. Update placeholder formatting hints safely
+  // 3. Update placeholder formatting hints safely
   const clientInput = document.getElementById('in-party-b');
   if (clientInput) {
     clientInput.placeholder = currentLang === 'ja' ? "企業名・取引先法人名を入力してください" : "Enter Corporate Client Full Entity Name";
@@ -75,11 +44,46 @@ function applyLanguage() {
     taxInput.placeholder = currentLang === 'ja' ? "法人番号 / 適格請求書発行事業者登録番号 (例: T1234567890123)" : "Corporate Identification / Vat ID (e.g. GB1234567)";
   }
 
-  // 6. Trigger updates safely
+  // 4. Update the actual invoice/contract data to match the language update
   syncInvoiceData();
   syncContractData();
 }
 
+// -------------------------------------------------------------------------
+// ⚡ LOCAL STORAGE DRAFT ENGINE (SAVES DATA TO USER'S MACHINE)
+// -------------------------------------------------------------------------
+function saveDraftsToLocal() {
+  const fields = [
+    'in-sender', 'in-tax', 'in-desc', 'in-curr', 'in-price', 'in-invoice-date',
+    'in-party-a', 'in-party-b', 'in-purpose', 'in-contract-date'
+  ];
+
+  fields.forEach(fieldId => {
+    const el = document.getElementById(fieldId);
+    if (el) {
+      localStorage.setItem(`jokare_draft_${fieldId}`, el.value);
+    }
+  });
+}
+
+function loadDraftsFromLocal() {
+  const fields = [
+    'in-sender', 'in-tax', 'in-desc', 'in-curr', 'in-price', 'in-invoice-date',
+    'in-party-a', 'in-party-b', 'in-purpose', 'in-contract-date'
+  ];
+
+  fields.forEach(fieldId => {
+    const el = document.getElementById(fieldId);
+    const savedValue = localStorage.getItem(`jokare_draft_${fieldId}`);
+    if (el && savedValue !== null) {
+      el.value = savedValue;
+    }
+  });
+}
+
+// -------------------------------------------------------------------------
+// SYNCHRONIZATION RUNNERS (CALLED ON KEYPRESS/INPUT)
+// -------------------------------------------------------------------------
 function syncInvoiceData() {
   const inSender = document.getElementById('in-sender');
   const inTax = document.getElementById('in-tax');
@@ -112,6 +116,9 @@ function syncInvoiceData() {
   const combinedVal = curr + price.toLocaleString();
   if (outPrice) outPrice.innerText = combinedVal;
   if (outTotal) outTotal.innerText = combinedVal;
+
+  // Auto-save values to computer hard drive as user types
+  saveDraftsToLocal();
 }
 
 function syncContractData() {
@@ -136,13 +143,22 @@ function syncContractData() {
   if (outPartyB) outPartyB.innerText = partyB;
   if (outPurpose) outPurpose.innerText = purpose;
   if (contractDateOut) contractDateOut.innerText = dateVal;
+
+  // Auto-save values to computer hard drive as user types
+  saveDraftsToLocal();
 }
 
-// Initialization initialization: Check saved state instantly on DOM load
+// -------------------------------------------------------------------------
+// DOM REVEAL INITIALIZATION PIPELINE
+// -------------------------------------------------------------------------
 window.addEventListener('DOMContentLoaded', () => {
-  // Fire the initial language engine evaluation block based on stored preferences
+  // 1. Load any previously saved drafts from client's hard drive first
+  loadDraftsFromLocal();
+  
+  // 2. Set the global translated views based on language settings
   applyLanguage();
   
+  // 3. Run structural alignments
   setTimeout(syncInvoiceData, 200);
   setTimeout(syncContractData, 200);
 });
